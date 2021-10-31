@@ -2,8 +2,7 @@
   "name": "gestion-app",
   "version": "0.1.0",
   "private": true,
-  "test:coverage": "cross-env CI=true npm test -- --env=jsdom --coverage",
-  "upload:test-report": "./node_modules/.bin/codecov",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
