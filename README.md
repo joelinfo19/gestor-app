@@ -5,6 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Available Scripts
 
 In the project directory, you can run:
+The project just deploy in branch main
+netlify account gmail -- tt
+circleci account github
 
 ### `yarn start`
 
