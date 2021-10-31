@@ -12,6 +12,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "test:coverage": "cross-env CI=true npm test -- --env=jsdom --coverage",
+    "upload:test-report": "./node_modules/.bin/codecov",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -35,4 +37,5 @@
       "last 1 safari version"
     ]
   }
+
 }
