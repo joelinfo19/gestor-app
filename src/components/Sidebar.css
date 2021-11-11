@@ -1,0 +1,28 @@
+.sidebar {
+    width: 14rem;
+    height: calc(100vh - 52px);
+    border: 2px solid orange;
+}
+
+.sidebar ul{
+    list-style: none;
+    padding: 1rem 2rem;
+}
+
+.sidebar li{
+    margin-bottom: 1rem;
+}
+
+.sidebar li a{
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    font-size: 1.3rem;
+    color: black;
+    padding:5px;
+    border-radius: 7px;
+}
+
+.sidebar li a.active{
+    background-color: #e7e9eb;
+}
