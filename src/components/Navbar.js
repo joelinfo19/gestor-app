@@ -8,8 +8,8 @@ export default function Navbar() {
                     <h1>navbar</h1>
                 </div>
                 <div className="texto">
-                    <h4><b>Nombre</b></h4>
-                    <h4>Administrador</h4>
+                    <h2><b>Nombre</b></h2>
+                    <h2>Administrador</h2>
                 </div>
             </div>
         </>

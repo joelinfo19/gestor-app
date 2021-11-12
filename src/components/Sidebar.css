@@ -1,16 +1,23 @@
 .sidebar {
-    width: 14rem;
+    background-color: #191c21;
+    width: 15rem;
     height: calc(100vh - 52px);
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
 }
 
 .sidebar ul{
     list-style: none;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
 }
 
 .sidebar li{
     margin-bottom: 1rem;
+    width: 100%;
+    padding: 0.2rem 2rem;
+}
+
+.sidebar li:hover{
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .sidebar li a{
@@ -18,11 +25,13 @@
     display: inline-block;
     width: 100%;
     font-size: 1.3rem;
-    color: black;
-    padding:5px;
-    border-radius: 7px;
+    color: #aaa;
+    padding:15px 20px;
+    /* border-radius: 7px; */
 }
 
 .sidebar li a.active{
-    background-color: #e7e9eb;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-right: 4px solid orange;
 }
