@@ -1,0 +1,111 @@
+*{
+    box-sizing: border-box;
+}
+
+/* body{
+    background-color: #ddd;
+} */
+
+/* html {
+    
+}
+*/
+.ala {
+    /* border: 2px solid orange; */
+}
+
+.form{
+    font-size: 20px;  /*eso determina el tamaño de letra total para em*/
+    /* background-color: #156da9; */
+    /* border: 2px solid green; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 18.75em; /*300px*/
+    background-color: #f5f5f5;
+    /* box-shadow: 5px 5px 10px 5px #ccc; */
+}
+
+.form .tab-header{
+    height: 3.125em; /*50px*/
+    line-height: 3.125em;
+}
+
+.form .tab-header > div{
+    width: 50%;
+    float: left;
+    text-align: center;
+    background-color: #ddd;
+    color: #555;
+    cursor: pointer;
+}
+
+.form .tab-header > div.active {
+    background-color: #f5f5f5;
+    color: #0e4a72;
+    font-weight: 700;
+}
+
+.form .tab-content{
+    padding: 1.25em; /*20px*/
+}
+
+.form .tab-content .form-element {
+    margin: 0.625em 0;  /*10px*/
+}
+
+.form .tab-content .form-element input {
+    width: 100%;
+    padding: 0.625em;
+    border: 0.063em solid #aaa;  /*1px*/
+    font-size: 1em;
+    background-color: #f5f5f5;
+    border-radius: 0.313em; /*5px*/
+    outline: none;
+}
+
+.form .tab-content .form-element input[type='checkbox']{
+    width: 1.875em; /*30px*/
+    margin: 0.5em 0;  /*8px*/
+    margin-left: -0.313em;  /*-5em*/
+}
+
+.form .tab-content .form-element label {
+    color: #111;
+}
+
+.form .tab-content .form-element button {
+    margin-top: 0.313em;
+    width: 100%;
+    padding: 0.625em;
+    border: none;
+    outline: none;
+    background-color: #264084;
+    color: #f5f5f5;
+    font-size: 1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 0.313em;
+}
+
+.form .tab-content .form-element button:hover{
+    background-color: #264084;
+    transition: .2s;
+    box-shadow: 0px 0px 10px 7px #ccc;
+    transform: scale(1.05);
+}
+
+.form .tab-content .form-element button a{
+    text-decoration: none;
+    color: white;
+}
+
+.form .tab-content > div.active {
+    display: block;
+}
+
+.form .tab-content > div {
+    display: none;
+}
+

@@ -1,0 +1,24 @@
+.navbar{
+    background-color: #1e1e25;
+    padding: 1rem 2rem;
+    /* border: 2px solid blue; */
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar .logo {
+    color: orange;
+}
+
+.navbar .texto{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navbar .texto h2 {
+    margin: 0 1rem;
+    color: white;
+}
