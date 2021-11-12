@@ -19,9 +19,9 @@ export default function Dashrutas() {
                 <Sidebar />
                 <div className="content">
                     <Routes>
-                        <Route path='/' element={<Inicio />} />
-                        <Route path='/docentes' element={<Docentes />} />
-                        <Route path='/cursos' element={<Cursos />} />
+                        <Route path='' element={<Inicio />} />
+                        <Route path='docentes' element={<Docentes />} />
+                        <Route path='cursos' element={<Cursos />} />
                     </Routes>
                 </div>
             </div>
