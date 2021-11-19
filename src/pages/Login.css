@@ -12,11 +12,16 @@
 */
 .ala {
     /* border: 2px solid orange; */
+    background-image: url("../assets/images/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
 }
 
 .form{
     font-size: 20px;  /*eso determina el tamaño de letra total para em*/
-    /* background-color: #156da9; */
     /* border: 2px solid green; */
     position: absolute;
     top: 50%;
@@ -47,31 +52,61 @@
     font-weight: 700;
 }
 
+.form .image {
+    /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.3rem; /*10px*/
+}
+
+.form .image img{
+    /* border: 1px solid blue; */
+    width: 120px;
+    height: 120px;
+}
+
 .form .tab-content{
     padding: 1.25em; /*20px*/
 }
 
+
 .form .tab-content .form-element {
     margin: 0.625em 0;  /*10px*/
+    display: flex;
+    align-items: center;
+    border: 0.063em solid #aaa; /*1px*/
+    border-radius: 0.313em; /*5px*/
+    padding: 0 0.9rem; /*15px*/
+}
+
+.form .tab-content .form-element:last-child{
+    border: none;
+    border-radius: none;
+    padding: 0
+}
+
+.form .tab-content .form-element i {
+    color: #aaa;
 }
 
 .form .tab-content .form-element input {
     width: 100%;
     padding: 0.625em;
-    border: 0.063em solid #aaa;  /*1px*/
+    border: none;
     font-size: 1em;
     background-color: #f5f5f5;
-    border-radius: 0.313em; /*5px*/
+    
     outline: none;
 }
 
-.form .tab-content .form-element input[type='checkbox']{
+.form .tab-content .form-element-label input[type='checkbox']{
     width: 1.875em; /*30px*/
     margin: 0.5em 0;  /*8px*/
     margin-left: -0.313em;  /*-5em*/
 }
 
-.form .tab-content .form-element label {
+.form .tab-content .form-element-label label {
     color: #111;
 }
 

@@ -12,7 +12,7 @@ export default function AppRouter() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/*" element={<DashRutas />} />
                 </Routes>
             </BrowserRouter>
