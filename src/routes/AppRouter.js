@@ -5,7 +5,8 @@ import {
 } from "react-router-dom";
 
 import Login from "../pages/Login";
-import DashRutas from "./DashRutas";
+import DashRutasAdmin from "./DashRutasAdmin";
+import DashRutas from "./DashRutasAdmin";
 
 export default function AppRouter() {
     return (
@@ -13,7 +14,8 @@ export default function AppRouter() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/*" element={<DashRutas />} />
+                    <Route path="/user/*" element={<DashRutas />} />
+                    <Route path="/admin/*" element={<DashRutasAdmin />} />
                 </Routes>
             </BrowserRouter>
         </>

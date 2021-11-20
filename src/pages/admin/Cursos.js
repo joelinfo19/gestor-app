@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import './tabla_estilos.css'
+import '../tabla_estilos.css'
 
 export default function Cursos() {
 

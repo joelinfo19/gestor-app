@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
 
-import sidebar_items from '../assets/JsonData/sidebar_routes.json'
+
 import logo from '../assets/images/log.png'
 
 const SidebarItem = (props) => {
@@ -18,7 +18,7 @@ const SidebarItem = (props) => {
     )
 }
 
-export default function Sidebar() {
+export default function Sidebar({jsonRutas}) {
 
     // const activeItem = sidebar_items.findIndex(item => item.route === window.location.pathname)
 
@@ -29,7 +29,7 @@ export default function Sidebar() {
                     <img src={logo} alt="company logo" />
                 </div>
                 {
-                    sidebar_items.map((item, index) => (
+                    jsonRutas.map((item, index) => (
                         <NavLink to={item.route} key={index}>
                             <SidebarItem
                                 title={item.display_name}

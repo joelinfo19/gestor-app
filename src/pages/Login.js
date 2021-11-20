@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import './Login.css'
 
-import Imagen from '../assets/images/Logo_info.png'
+import Imagen1 from '../assets/images/Logo_info.png'
+import Imagen2 from '../assets/images/Logo_unsaac.png'
 
 export default function Login() {
 
@@ -19,7 +20,8 @@ export default function Login() {
                     <div onClick={showSidebar} className={sidebar ? '' : 'active'}>Inicio</div>
                 </div>
                 <div className="image">
-                    <img src={Imagen} alt="" />
+                    <img src={Imagen1} alt="" />
+                    <img src={Imagen2} alt="" />
                 </div>
                 <div className="tab-content">
                     <div className={sidebar ? 'tab-body active' : 'tab-body'}>
@@ -41,7 +43,7 @@ export default function Login() {
                         </div>
                         <div className="form-element">
                             <button>
-                                <NavLink to="/list_cursos">Registro</NavLink>
+                                <NavLink to="/admin/list_cursos">Registro</NavLink>
                             </button>
                         </div>
                     </div>
@@ -58,7 +60,7 @@ export default function Login() {
                         </div>
                         <div className="form-element">
                             <button>
-                                <NavLink to="/list_cursos">Iniciar</NavLink>
+                                <NavLink to="admin/list_cursos">Iniciar</NavLink>
                             </button>
 
                         </div>

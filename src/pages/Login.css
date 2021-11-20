@@ -41,7 +41,7 @@
     width: 50%;
     float: left;
     text-align: center;
-    background-color: #ddd;
+    background-color: #aaa;
     color: #555;
     cursor: pointer;
 }
@@ -56,14 +56,14 @@
     /* border: 1px solid blue; */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     margin-top: 1.3rem; /*10px*/
 }
 
 .form .image img{
     /* border: 1px solid blue; */
-    width: 120px;
-    height: 120px;
+    width: 6.5rem; /*120px*/
+    height: 6.5rem;
 }
 
 .form .tab-content{
@@ -75,7 +75,7 @@
     margin: 0.625em 0;  /*10px*/
     display: flex;
     align-items: center;
-    border: 0.063em solid #aaa; /*1px*/
+    border: 0.063em solid rgb(124, 124, 124); /*1px*/
     border-radius: 0.313em; /*5px*/
     padding: 0 0.9rem; /*15px*/
 }
@@ -87,7 +87,7 @@
 }
 
 .form .tab-content .form-element i {
-    color: #aaa;
+    color: rgb(129, 129, 129);
 }
 
 .form .tab-content .form-element input {
@@ -96,7 +96,6 @@
     border: none;
     font-size: 1em;
     background-color: #f5f5f5;
-    
     outline: none;
 }
 

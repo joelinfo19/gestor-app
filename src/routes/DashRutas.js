@@ -7,13 +7,10 @@ import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Docentes from '../pages/Docentes'
 import Cursos from '../pages/Cursos'
-import AsignarHorarios from '../pages/AsignarHorarios'
-import Estadisticas from '../pages/Estadisticas'
-import Perfil from '../pages/Perfil'
 
 import './DashRutas.css'
 
-export default function Dashrutas() {
+export default function DashRutas() {
     return (
         <div className="contenedor">
             <Navbar />
@@ -21,11 +18,8 @@ export default function Dashrutas() {
                 <Sidebar />
                 <div className="content">
                     <Routes>
-                        <Route path='/list_docentes' element={<Docentes />} />
-                        <Route path='/list_cursos' element={<Cursos />} />
-                        <Route path='/asignar_horarios' element={<AsignarHorarios />} />
-                        <Route path='/estadisticas' element={<Estadisticas />} />
-                        <Route path='/perfil' element={<Perfil />} />
+                        <Route exact path='/mis_cursos' element={<Docentes />} />
+                        <Route exact path='/perfil' element={<Cursos />} />
                     </Routes>
                 </div>
             </div>
