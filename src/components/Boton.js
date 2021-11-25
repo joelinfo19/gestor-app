@@ -1,17 +1,18 @@
-export default function Boton({border,color,size,children,onClick,radius,padding}) {
+export default function Boton({border,color,texto,onClick}) {
     return (
         <div>
             <button
                 onClick={onClick}
                 style={{
                     backgroundColor: color,
-                    border,
-                    fontSize: size,
-                    borderRadius: radius,
-                    padding: padding
+                    color: "#fff",
+                    border: "none",
+                    fontSize: "17px",
+                    borderRadius: "5px",
+                    padding: "10px 12px"
                 }}
             >
-                {children}
+                {texto}
             </button>
         </div>
     )

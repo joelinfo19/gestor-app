@@ -1,0 +1,26 @@
+p {
+    margin-top: 7px;
+}
+input {
+    border: 0;
+    outline: none;
+    font-size: 20px;
+}
+
+.field {
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 100%;
+}
+
+.field:focus {
+    border-color: #18a383;
+}
+
+.btn_form {
+    width: 60%;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

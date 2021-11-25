@@ -26,20 +26,20 @@ export default function Login() {
                 <div className="tab-content">
                     <div className={sidebar ? 'tab-body active' : 'tab-body'}>
                         <div className="form-element">
-                            <i class="fas fa-envelope icon"></i>
+                            <i className="fas fa-envelope icon"></i>
                             <input type="text" placeholder="Email" />
                         </div>
                         <div className="form-element">
-                            <i class="fas fa-user icon"></i>
+                            <i className="fas fa-user icon"></i>
                             <input type="text" placeholder="Username" />
                         </div>
                         <div className="form-element">
-                            <i class="fas fa-key icon"></i>
+                            <i className="fas fa-key icon"></i>
                             <input type="password" placeholder="Password" />
                         </div>
                         <div className="form-element-label">
                             <input type="checkbox" id='remenber_me' />
-                            <label for='remenber_me'>Remember</label>
+                            <label htmlFor='remenber_me'>Remember</label>
                         </div>
                         <div className="form-element">
                             <button>
@@ -51,11 +51,11 @@ export default function Login() {
 
                     <div className={sidebar ? 'tab-body' : 'tab-body active'}>
                         <div className="form-element">
-                            <i class="fas fa-envelope icon"></i>
+                            <i className="fas fa-envelope icon"></i>
                             <input type="text" placeholder="Email" />
                         </div>
                         <div className="form-element">
-                            <i class="fas fa-key icon"></i>
+                            <i className="fas fa-key icon"></i>
                             <input type="password" placeholder="Password" />
                         </div>
                         <div className="form-element">

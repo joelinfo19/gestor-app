@@ -32,11 +32,8 @@ export default function Navbar() {
                         <div className="btn_salir">
                             <NavLink to="/">
                                 <Boton
-                                    color="red"
-                                    children="Salir"
-                                    size="20px"
-                                    padding="10px"
-                                    radius="5px"
+                                    color="#da3746"
+                                    texto="Salir"
                                 />
                             </NavLink>
                         </div>
