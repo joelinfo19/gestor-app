@@ -27,24 +27,27 @@ export default function Login() {
                     <div className={sidebar ? 'tab-body active' : 'tab-body'}>
                         <div className="form-element">
                             <i className="fas fa-envelope icon"></i>
-                            <input type="text" placeholder="Email" />
+                            <input type="text" placeholder="Email" value={'edward@gmail.com'} />
                         </div>
                         <div className="form-element">
                             <i className="fas fa-user icon"></i>
-                            <input type="text" placeholder="Username" />
+                            <input type="text" placeholder="Username" value={'edward'}/>
                         </div>
                         <div className="form-element">
                             <i className="fas fa-key icon"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" placeholder="Password" value={'edward'} />
                         </div>
                         <div className="form-element-label">
                             <input type="checkbox" id='remenber_me' />
                             <label htmlFor='remenber_me'>Remember</label>
                         </div>
-                        <div className="form-element">
-                            <button>
-                                <NavLink to="/admin/list_cursos">Registro</NavLink>
-                            </button>
+                        <div className="form-element ">
+                            <NavLink to="/admin/list_cursos">
+                                <button>
+                                    Registro
+                                </button>
+                            </NavLink>
+
                         </div>
                     </div>
 
@@ -52,16 +55,21 @@ export default function Login() {
                     <div className={sidebar ? 'tab-body' : 'tab-body active'}>
                         <div className="form-element">
                             <i className="fas fa-envelope icon"></i>
-                            <input type="text" placeholder="Email" />
+                            <input type="text" placeholder="Email" value={'edward@gmail.com'} />
                         </div>
                         <div className="form-element">
                             <i className="fas fa-key icon"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" placeholder="Password" value={'login'} />
                         </div>
                         <div className="form-element">
-                            <button>
-                                <NavLink to="admin/list_cursos">Iniciar</NavLink>
-                            </button>
+                            <NavLink to="admin/list_cursos">
+                                <button>
+                                    Iniciar
+                                </button>
+
+                            </NavLink>
+
+
 
                         </div>
                     </div>

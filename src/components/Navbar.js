@@ -7,7 +7,7 @@ import Boton from './Boton'
 import user_image from '../assets/images/tuat.png'
 
 const curr_user = {
-    display_name: 'Tuat Tran',
+    display_name: 'Edward',
     esAdmin: 'Es Admin',
     image: user_image
 }
