@@ -170,6 +170,7 @@ export default function Cursos() {
         <button className="btn btn-success" onClick={() => {
           setStateModal(!stateModal)
           setSelectedCouse({})
+          setHorario([])
         }}
         >Nuevo curso</button>
         <table className="content-table">
