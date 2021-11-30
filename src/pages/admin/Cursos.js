@@ -64,7 +64,7 @@ const Horario = ({ horario, setHorario }) => {
       </select>
       <TimePicker value={inicio} onChange={setInicio} />
       <TimePicker value={fin} onChange={setFin} />
-      <button type='button' onClick={agregarHorario} >+</button>
+      <button type='button' onClick={agregarHorario} > + </button>
     </MuiPickersUtilsProvider>
   )
 }
@@ -85,11 +85,10 @@ export default function Cursos() {
       ...selectedCourse,
       [event.target.name]: event.target.value
     })
-    console.log(selectedCourse)
   }
+  console.log(selectedCourse)
 
   const insertarNuevoCurso = () => {
-    console.log(selectedCourse)
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -110,6 +109,7 @@ export default function Cursos() {
         fetchApi()
         setStateModal(!stateModal)
         setNewCourse(true)
+        setSelectedCouse({})
         console.log(data)
       })
       .catch(error => console.log(error))
@@ -137,7 +137,9 @@ export default function Cursos() {
         fetchApi()
         setStateModal(!stateModal)
         setNewCourse(true)
+        setSelectedCouse({})
         console.log("Curso Editado", data)
+
       })
       .catch(error => console.log(error))
   }
@@ -161,12 +163,14 @@ export default function Cursos() {
   }, [])
   console.log(horario)
   return (
-    <>
+    <div className="main-cursos">
       <h1>Cursos</h1>
 
       <div className="tabla-div">
         <button className="btn btn-success" onClick={() => {
           setStateModal(!stateModal)
+          setSelectedCouse({})
+          setHorario([])
         }}
         >Nuevo curso</button>
         <table className="content-table">
@@ -230,7 +234,7 @@ export default function Cursos() {
           cambiarEstado={setStateModal}
           titulo="Nuevo Curso"
         >
-          <form>
+          <form className="form-curso">
             <div className="form-element">
               <label>Codigo</label>
               <input type="text" name="codigo" value={isObjEmpty(selectedCourse) ? "" : selectedCourse.codigo} onChange={handleInputChange} />
@@ -255,28 +259,35 @@ export default function Cursos() {
               <label>Cant. Creditos</label>
               <input type="text" name="creditos" value={isObjEmpty(selectedCourse) ? "" : selectedCourse.creditos} onChange={handleInputChange} />
             </div>
-            <Horario horario={horario} setHorario={setHorario} />
-            <button
-              className="btn btn-success"
-              type="button"
-              onClick={() => {
-                newCourse ?
-                  //Nuevo curso
-                  insertarNuevoCurso()
-                  //console.log("nuevo curso", newCourse)
-                  :
-                  //Editando curso
-                  editarCurso(selectedCourse._id)
-                //console.log("editando", newCourse)
+            <div>
+              <label>Horario</label>
+              <Horario horario={horario} setHorario={setHorario} />
 
-              }}
-            >Guardar</button>
+            </div>
+            <div>
+              <button
+                className="btn btn-success"
+                type="button"
+                onClick={() => {
+                  newCourse ?
+                    //Nuevo curso
+                    insertarNuevoCurso()
+                    //console.log("nuevo curso", newCourse)
+                    :
+                    //Editando curso
+                    editarCurso(selectedCourse._id)
+                  //console.log("editando", newCourse)
+
+                }}
+              >Guardar</button>
+
+            </div>
           </form>
         </Modal>
 
       </div>
 
-    </>
+    </div>
   )
 }
 
