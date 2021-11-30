@@ -2,7 +2,72 @@ import React, { useEffect, useState } from "react"
 import '../tabla_estilos.css'
 import './Cursos.css'
 import Modal from '../../components/Modal'
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react"
+
+import { TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+
+const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
+
+const Horario = ({ horario, setHorario }) => {
+  const [inicio, setInicio] = useState(new Date('January 1, 2000 00:00:00'))
+  const [fin, setFin] = useState(new Date('January 1, 2000 00:00:00'))
+  const [dia, setDia] = useState('Lunes')
+
+  const agregarHorario = () => {
+    setHorario([...horario, {
+      dia: dia,
+      horaInicio: `${addZero(inicio.getHours())}:${addZero(inicio.getMinutes())}`,
+      horaFin: `${addZero(fin.getHours())}:${addZero(fin.getMinutes())}`
+    }])
+  }
+
+  const selecionarDia = (event) => {
+    setDia(event.target.value)
+  }
+  return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {
+        horario.length > 0 ?
+          <table className="content-table">
+            <thead>
+              <tr>
+                <th>Dia</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                horario.map((data) =>
+                  <tr key={data.dia}>
+                    <td>{data.dia}</td>
+                    <td>{data.horaInicio}</td>
+                    <td>{data.horaFin}</td>
+                    <td>
+                      <button type='button'> - </button>
+                    </td>
+                  </tr>
+                )
+              }
+            </tbody>
+          </table>
+          :
+          <></>
+      }
+      <select onChange={selecionarDia} >
+        {
+          dias.map((dia) =>
+            <option value={dia}>{dia}</option>
+          )
+        }
+      </select>
+      <TimePicker value={inicio} onChange={setInicio} />
+      <TimePicker value={fin} onChange={setFin} />
+      <button type='button' onClick={agregarHorario} >+</button>
+    </MuiPickersUtilsProvider>
+  )
+}
 
 export default function Cursos() {
 
@@ -12,6 +77,8 @@ export default function Cursos() {
   const [selectedCourse, setSelectedCouse] = useState({})
   const [newCourse, setNewCourse] = useState(true)
   const [stateModal, setStateModal] = useState(false)
+
+  const [horario, setHorario] = useState([])
 
   const handleInputChange = (event) => {
     setSelectedCouse({
@@ -32,7 +99,7 @@ export default function Cursos() {
         grupo: selectedCourse.grupo,
         tipo: selectedCourse.tipo,
         creditos: Number(selectedCourse.creditos),
-        horario: [{ dia: 'Lunes', horaInicio: '9:00', horaFin: '11:00' }]//newCourse.horario
+        horario: horario //[{ dia: 'Lunes', horaInicio: '9:00', horaFin: '11:00' }]//newCourse.horario
       }),
       headers: {
         'Content-type': 'application/json'
@@ -92,8 +159,7 @@ export default function Cursos() {
   useEffect(() => {
     fetchApi()
   }, [])
-
-
+  console.log(horario)
   return (
     <>
       <h1>Cursos</h1>
@@ -189,21 +255,19 @@ export default function Cursos() {
               <label>Cant. Creditos</label>
               <input type="text" name="creditos" value={isObjEmpty(selectedCourse) ? "" : selectedCourse.creditos} onChange={handleInputChange} />
             </div>
+            <Horario horario={horario} setHorario={setHorario} />
             <button
               className="btn btn-success"
               type="button"
-              
               onClick={() => {
-
                 newCourse ?
                   //Nuevo curso
                   insertarNuevoCurso()
-                  
                   //console.log("nuevo curso", newCourse)
                   :
                   //Editando curso
                   editarCurso(selectedCourse._id)
-                  //console.log("editando", newCourse)
+                //console.log("editando", newCourse)
 
               }}
             >Guardar</button>
@@ -216,10 +280,16 @@ export default function Cursos() {
   )
 }
 
+
+
 function isObjEmpty(obj) {
   for (var prop in obj) {
     if (obj.hasOwnProperty(prop)) return false;
   }
-
   return true;
+}
+
+function addZero(i) {
+  if (i < 10) { i = "0" + i }
+  return i;
 }
