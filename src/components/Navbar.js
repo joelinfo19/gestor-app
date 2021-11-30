@@ -7,7 +7,7 @@ import Boton from './Boton'
 import user_image from '../assets/images/tuat.png'
 
 const curr_user = {
-    display_name: 'Tuat Tran',
+    display_name: 'Edward',
     esAdmin: 'Es Admin',
     image: user_image
 }
@@ -17,7 +17,7 @@ const curr_user = {
 export default function Navbar() {
     return (
         <>
-            <div className="navbar">
+            <div className="navbar-contenido">
                 <div className="navContent">
                     <div className="navbar_right-item">
                         {/* <div className="user_image">
@@ -31,10 +31,9 @@ export default function Navbar() {
                         </div>
                         <div className="btn_salir">
                             <NavLink to="/">
-                                <Boton
-                                    color="#da3746"
-                                    texto="Salir"
-                                />
+                                <button className="btn btn-danger" >
+                                    Salir
+                                </button>
                             </NavLink>
                         </div>
                     </div>
