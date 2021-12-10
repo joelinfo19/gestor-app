@@ -6,9 +6,9 @@ export default function PrivateRouteAdmin({children, conRol}) {
     const user = { id: 15, rol:"admin" };
     // const user = null;
 
-    if (conRol && user?.rol !== conRol) return <Navigate to="/perfil" />
-     
-    if (user == null) return <Navigate to="/" />
+    // if (conRol && user?.rol !== conRol) return <Navigate to="/perfil" />
+    //
+    // if (user == null) return <Navigate to="/" />
     
     return (
           children

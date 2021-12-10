@@ -162,6 +162,8 @@ export default function AsignarHorarios() {
         // setMatricula(matricula.concat(info))
 
     }
+
+    //TODO: post many data and make post
     if(flagadd===true){
         setMatricula(matricula.concat(info))
         setFlagadd(false)
@@ -351,10 +353,6 @@ export default function AsignarHorarios() {
 
                                                 <i className="fas fa-edit" onClick={()=>selectMat(i)}></i>
                                                 </td>
-
-
-
-
                                         </tr>
                                         )
                                     }
