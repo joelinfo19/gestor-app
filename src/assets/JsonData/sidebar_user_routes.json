@@ -1,0 +1,12 @@
+[
+    {
+        "display_name": "Mis cursos",
+        "route": "/user/mis_cursos",
+        "icon": "far fa-address-card"
+    },
+    {
+        "display_name": "Mi perfil",
+        "route": "/user/perfil",
+        "icon": "far fa-user"
+    }
+]

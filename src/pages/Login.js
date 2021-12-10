@@ -64,13 +64,18 @@ export default function Login() {
                         <div className="form-element">
                             <NavLink to="admin/list_cursos">
                                 <button>
-                                    Iniciar
+                                    Iniciar como admin
                                 </button>
 
                             </NavLink>
 
+                            <NavLink to="user/mis_cursos">
+                                <button>
+                                    Iniciar con Docente
+                                </button>
 
-
+                            </NavLink>
+        
                         </div>
                     </div>
 

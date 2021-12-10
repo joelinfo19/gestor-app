@@ -6,7 +6,7 @@ import {
 
 import Login from "../pages/Login";
 import DashRutasAdmin from "./DashRutasAdmin";
-import DashRutas from "./DashRutasAdmin";
+import DashRutas from "./DashRutas";
 
 export default function AppRouter() {
     return (
