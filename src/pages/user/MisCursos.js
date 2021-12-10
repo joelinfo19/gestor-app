@@ -20,13 +20,13 @@ const CardCourse = ({ codigo, nombre, horario }) => {
 
 export default function MisCursos({ id_docente }) {
 	const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
-	// const url = 'http://localhost:4000/api/matriculas/'
+	//const url = 'http://localhost:4000/api/matriculas/'
 
 	const [myCourses, setMyCourses] = useState([])
 
 	const getMyCourses = async () => {
 
-		const id = '61a577efeaea4ae1fd5e0591'
+		const id = '61a57075eaea4ae1fd5e04f6'
 		const response = await fetch(url + 'mis-cursos/' + id)
 		const responseJSON = await response.json()
 		setMyCourses(responseJSON)

@@ -204,6 +204,7 @@ export default function Cursos() {
       <div className="">
         <button className="btn btn-success" onClick={() => {
           setShowModal(!showModal)
+          setNewCourse(true)
           setSelectedCouse({})
           setHorario([])
         }}
@@ -271,27 +272,27 @@ export default function Cursos() {
           <form className="row g-3">
             <div className="col-12">
               <label>Codigo</label>
-              <input type="text" name="codigo" className="form-control" value={newCourse ? "" : selectedCourse.codigo} onChange={handleInputChange} />
+              <input type="text" name="codigo" className="form-control" value={selectedCourse.codigo} onChange={handleInputChange} />
             </div>
             <div className="col-12">
               <label>Nombre</label>
-              <input type="text" name="nombre" className="form-control" value={newCourse ? "" : selectedCourse.nombre} onChange={handleInputChange} />
+              <input type="text" name="nombre" className="form-control" value={selectedCourse.nombre} onChange={handleInputChange} />
             </div>
             <div className="col-md-4">
               <label>Categoria</label>
-              <input type="text" name="categoria" className="form-control" value={newCourse ? "" : selectedCourse.categoria} onChange={handleInputChange} />
+              <input type="text" name="categoria" className="form-control" value={selectedCourse.categoria} onChange={handleInputChange} />
             </div>
             <div className="col-md-4">
               <label>Grupo</label>
-              <input type="text" name="grupo" className="form-control" value={newCourse ? "" : selectedCourse.grupo} onChange={handleInputChange} />
+              <input type="text" name="grupo" className="form-control" value={selectedCourse.grupo} onChange={handleInputChange} />
             </div>
             <div className="col-md-4">
               <label>Tipo</label>
-              <input type="text" name="tipo" className="form-control" value={newCourse ? "" : selectedCourse.tipo} onChange={handleInputChange} />
+              <input type="text" name="tipo" className="form-control" value={selectedCourse.tipo} onChange={handleInputChange} />
             </div>
             <div className="col-12">
               <label>Cant. Creditos</label>
-              <input type="text" name="creditos" className="form-control" value={newCourse ? "" : selectedCourse.creditos} onChange={handleInputChange} />
+              <input type="text" name="creditos" className="form-control" value={selectedCourse.creditos} onChange={handleInputChange} />
             </div>
             <div>
               <label>Horario</label>
@@ -375,7 +376,7 @@ export default function Cursos() {
           </form>
         </Modal> */}
 
-        
+
       </div>
     </div >
   )
