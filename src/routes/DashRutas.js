@@ -8,6 +8,7 @@ import Sidebar from '../components/Sidebar'
 
 import MisCursos from '../pages/user/MisCursos'
 import Curso from '../pages/user/Curso'
+import Perfil from "../pages/user/Perfil"
 
 import Sidebar_items from '../assets/JsonData/sidebar_user_routes.json'
 
@@ -24,7 +25,7 @@ export default function DashRutas() {
                         <Route exact path='/mis_cursos' element={<MisCursos />} />
                         <Route exact path='/mis_cursos/:courseId' element={<Curso />} />
 
-                        <Route exact path='/perfil' element={<MisCursos />} />
+                        <Route exact path='/perfil' element={<Perfil />} />
                     </Routes>
                 </div>
             </div>

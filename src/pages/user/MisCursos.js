@@ -19,8 +19,8 @@ const CardCourse = ({ codigo, nombre, horario }) => {
 }
 
 export default function MisCursos({ id_docente }) {
-	//const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
-	const url = 'http://localhost:4000/api/matriculas/'
+	const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
+	// const url = 'http://localhost:4000/api/matriculas/'
 
 	const [myCourses, setMyCourses] = useState([])
 
