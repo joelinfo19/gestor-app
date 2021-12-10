@@ -1,11 +1,17 @@
 /*react v6 redirect is navigate*/
 import { Route, Routes, Navigate } from "react-router"
 
-export default function PrivateRouteAdmin({children}) {
+export default function PrivateRouteAdmin({children, conRol}) {
 
-    const user = { id: 15 };
+    const user = { id: 15, rol:"regular" };
     // const user = null;
 
-    return user ? children : <Navigate to="/" /> /*la ruta / es el login*/
+    // if (conRol && user?.rol !== conRol) return <Navigate to="/perfil" />
+    //
+    // if (user == null) return <Navigate to="/" />
+    
+    return (
+          children
+     )
 
 }
