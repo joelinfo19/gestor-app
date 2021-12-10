@@ -41,6 +41,7 @@ export default function Docentes() {
 
 
 
+
     const handleInputChange = (event) => {
         setConsolaSeleccionada({
             ...consolaSeleccionada,
