@@ -1,32 +1,41 @@
 
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { Card } from 'react-bootstrap'
 
-const CardCourse = ({ codigo, nombre, horario }) => {
+
+const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 	const [state, setState] = useState()
 	return (
-		<Link to={codigo}>
-			<div>
-				<h2>{codigo}</h2>
-				<strong>{nombre}</strong>
-				<div>
-					horario
-				</div>
-			</div>
+		<Card
+			bg="Light"
+			className="m-2"
+		>
+			<Link className="text-decoration-none" to={idMatricula}>
+				<Card.Header>{codigo}</Card.Header>
+				<Card.Body>
+					<Card.Title>{nombre}</Card.Title>
+					<Card.Text>
+						Horario
+					</Card.Text>
+				</Card.Body>
+			</Link>
+		</Card>
 
-		</Link>
 	)
 }
 
+
+
 export default function MisCursos({ id_docente }) {
 	const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
-	//const url = 'http://localhost:4000/api/matriculas/'
-
 	const [myCourses, setMyCourses] = useState([])
 
+	const user = localStorage.getItem("user")
+	console.log(user)
 	const getMyCourses = async () => {
 
-		const id = '61a57075eaea4ae1fd5e04f6'
+		const id = '61a577efeaea4ae1fd5e0591'
 		const response = await fetch(url + 'mis-cursos/' + id)
 		const responseJSON = await response.json()
 		setMyCourses(responseJSON)
@@ -42,23 +51,28 @@ export default function MisCursos({ id_docente }) {
 	// 		</div>
 	// 	)
 	// }
-	myCourses.map(course => {
-		console.log(course.curso.nombre)
-	})
+
 	return (
-		<div>
-			{
-				myCourses.map((course) => {
-					return <div key={course._id}>
-						<CardCourse
-							codigo={course.curso.codigo}
-							nombre={course.curso.nombre}
-							horario={course.curso.horario}
-						/>
-					</div>
-				})
-			}
-		</div>
+		<>
+			<h1>Mis cursos</h1>
+			<div className="d-flex flex-wrap">
+				{
+					myCourses.map((course) => {
+						return <div
+							className="w-25"
+							key={course._id}
+						>
+							<CardCourse
+								idMatricula={course._id}
+								codigo={course.curso.codigo}
+								nombre={course.curso.nombre}
+								horario={course.curso.horario}
+							/>
+						</div>
+					})
+				}
+			</div>
+		</>
 	)
 }
 

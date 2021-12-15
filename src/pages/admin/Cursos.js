@@ -103,7 +103,7 @@ const Horario = ({ horario, setHorario }) => {
     </MuiPickersUtilsProvider>
   )
 }
-
+// 
 export default function Cursos() {
 
   const url = 'https://testunsaac.herokuapp.com/api/cursos/'
@@ -121,7 +121,6 @@ export default function Cursos() {
       [event.target.name]: event.target.value
     })
   }
-  console.log(selectedCourse)
 
 
   const insertarNuevoCurso = () => {
