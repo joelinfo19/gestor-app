@@ -1,18 +1,9 @@
-*{
-    box-sizing: border-box;
-}
 
-/* body{
-    background-color: #ddd;
-} */
 
-/* html {
-    
-}
-*/
-.ala {
+.contenedor-general {
     /* border: 2px solid orange; */
     background-image: url("../assets/images/bg.jpg");
+    /* background-color: #A8A3AE; */
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
@@ -20,8 +11,10 @@
     width: 100%;
 }
 
-.form{
-    font-size: 20px;  /*eso determina el tamaño de letra total para em*/
+.contenedor-log-reg {
+    border-radius: 10px;
+    border: 5px solid #fff;
+    font-size: 22px;  /*eso determina el tamaño de letra total para em */
     /* border: 2px solid green; */
     position: absolute;
     top: 50%;
@@ -32,118 +25,86 @@
     /* box-shadow: 5px 5px 10px 5px #ccc; */
 }
 
-.form .tab-header{
+.tab-header{
     height: 3.125em; /*50px*/
     line-height: 3.125em;
 }
 
-.form .tab-header > div{
+.tab-header > div{
     width: 50%;
     float: left;
     text-align: center;
     background-color: #aaa;
-    color: #555;
+    color: #333;
     cursor: pointer;
 }
 
-.form .tab-header > div.active {
+.tab-header > div.active {
     background-color: #f5f5f5;
     color: #0e4a72;
     font-weight: 700;
 }
 
-.form .image {
+.tab-content{
+    padding: 1.25em; /*20px*/
+    background-color: #ddd;
+}
+
+.tab-content > div.active {
+    display: block;
+}
+
+.tab-content > div {
+    display: none;
+}
+
+#emailHelp {
+    font-size: 0.7em; /*14px*/
+}
+
+.contenedor-log-reg > .tab-content input {
+    font-size: 0.95em;
+}
+
+.contenedor-log-reg > .tab-content label{
+    font-size: 1.0em;
+}
+
+.tab-imagenes {
     /* border: 1px solid blue; */
+    padding: 0 50px;
     display: flex;
     align-items: center;
     justify-content: space-around;
     margin-top: 1.3rem; /*10px*/
 }
 
-.form .image img{
+.tab-imagenes img{
     /* border: 1px solid blue; */
-    width: 6.5rem; /*120px*/
-    height: 6.5rem;
-}
-
-.form .tab-content{
-    padding: 1.25em; /*20px*/
+    width: 4.5em; /*120px*/
+    height: 4.5em;
 }
 
 
-.form .tab-content .form-element {
-    margin: 0.625em 0;  /*10px*/
-    display: flex;
-    align-items: center;
-    border: 0.063em solid rgb(124, 124, 124); /*1px*/
-    border-radius: 0.313em; /*5px*/
-    padding: 0 0.9rem; /*15px*/
+/* estilo 3d boton */
+.pushable {
+  background-color: #074297;
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+}
+.front {
+  display: block;
+  padding: 8px 30px;
+  border-radius: 12px;
+  font-size: 1.55rem;
+  background-color: #0d6efd;
+  color: white;
+  transform: translateY(-6px);
 }
 
-.form .tab-content .form-element:last-child{
-    border: none;
-    border-radius: none;
-    padding: 0
+.pushable:active .front {
+  transform: translateY(-2px);
 }
-
-.form .tab-content .form-element i {
-    color: rgb(129, 129, 129);
-}
-
-.form .tab-content .form-element input {
-    width: 100%;
-    padding: 0.625em;
-    border: none;
-    font-size: 1em;
-    background-color: #f5f5f5;
-    outline: none;
-}
-
-.form .tab-content .form-element-label input[type='checkbox']{
-    width: 1.875em; /*30px*/
-    margin: 0.5em 0;  /*8px*/
-    margin-left: -0.313em;  /*-5em*/
-}
-
-.form .tab-content .form-element-label label {
-    color: #111;
-}
-
-.form .tab-content .form-element button {
-    margin-top: 0.313em;
-    width: 100%;
-    padding: 0.625em;
-    border: none;
-    outline: none;
-    background-color: #264084;
-    color: #f5f5f5;
-    font-size: 1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 0.313em;
-}
-
-.form .tab-content .form-element button:hover{
-    background-color: #264084;
-    transition: .2s;
-    box-shadow: 0px 0px 10px 7px #ccc;
-    transform: scale(1.05);
-}
-
-.form .tab-content .form-element button a{
-    text-decoration: none;
-    color: white;
-}
-
-.form .tab-content > div.active {
-    display: block;
-}
-
-.form .tab-content > div {
-    display: none;
-}
-
-.txt-error {
-    color: red;
-}
-

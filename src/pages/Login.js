@@ -9,166 +9,143 @@ import Imagen2 from '../assets/images/Logo_unsaac.png'
 
 export default function Login() {
 
+    const [email, setEmail] = useState('')
+    const [contrasenia, setContrasenia] = useState('')
+    const [view, setView] = useState(false);
+    const [error, setError] = useState(false);
 
-    const [sidebar, setSidebar] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [db, setDb] = useState([])
+    const [docentes, setDocentes] = useState(null)
 
-    const showSidebar = () => setSidebar(!sidebar);
-
-    // const [stateForm, setStateForm] = useState({})
-    // const [isAuthenticated, setIsAuthenticated] = useState(false)
-    // const handleInputChange = (event) => {
-    //     setStateForm({
-    //         ...stateForm,
-    //         [event.target.name]: event.target.value
-    //     })
-    //     console.log(stateForm)
-    // }
+    const changeView = () => setView(!view);
 
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('user-info')){
-    //         navigate("/")
-    //     }
-    // }, [])
-    // localStorage.setItem("user-info", JSON.stringify(result))
-
+    // guardar en local storage
+    const setLocalStorageUser = value => {
+        try {
+            // setSaveEmail(value)
+            localStorage.setItem('user', value)
+        } catch (e) { console.log(e) }
+    }
+    const fetchApi = async () => {
+        const response = await fetch('https://testunsaac.herokuapp.com/api/docentes')
+        // console.log(response.statusText)
+        const responseJSON = await response.json()
+        setDocentes(responseJSON.docentes)
+        console.log(responseJSON.docentes)
+    }
+    useEffect(() => {
+        fetchApi()
+    }, [])
 
 
     let navigate = useNavigate()
-
     let api = axios()
-    let url = 'https://reqres.in/api/login'
-
-    useEffect(() => {
-        // axios.get(url).then((res) => {
-        //     console.log(res);
-        // })  
-    }, [])
+    let url = 'https://testunsaac.herokuapp.com/api/login'
 
     let data = {
-        // email: "edward2@gmail.com",
-        // contrasenia: "123"
-        email: "eve.holt@reqres.in",
-        password: "cityslicka"
+        email: email + "@gmail.com",
+        contrasenia: contrasenia
+
     }
 
-    const clickLogin = () => {
-        setError(null)
-        setLoading(true)
-        let options = {
-            body: data,
-            headers: { "content-type": "application/json" }
-        }
-        api.post(url, options)
-            .then((res) => {
-                console.log(res)
-                if (!res.err) {
-                    setLoading(false)
-                    console.log("logueado")
+    const clickLogin = (e) => {
+        e.preventDefault()
+        setError(false)
+        // POST request using fetch inside useEffect React hook
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        };
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // setDataLogin(data.menu)
+                console.log("sucess >>> ", data)
+                console.log("data >>> ", data.menu[1].submenu)
+                // setLocalStorage(email+'@gmail.com')
+
+                console.log("es admmin: ", esAdmin())
+                if (esAdmin()) {
                     navigate("/admin/perfil")
                 }
-                else {
-                    setLoading(false)
-                    setError("Email or Password failed")
-                    console.log("nooo logueado")
-                }
+                else { navigate("/user/perfil") }
             })
-            .catch((error) => {
-                setError("mething went wrong. Please try again")
-                console.error("error >>> ", error)
-            })
+            .catch(error => (
+                console.log(error),
+                setError(true)
+            ))
+    }
+
+    const esAdmin = () => {
+        ////////
+        // console.log(emailCorrecto)
+        for (var i = 0; i < docentes.length; i++) {
+            console.log(data.email, "==", docentes[i].email)
+            if (data.email == docentes[i].email) {
+                setLocalStorageUser(JSON.stringify(docentes[i]))
+                if (docentes[i].esAdmin) { return true }
+                break
+            }
+        }
+        return false
     }
 
 
     return (
-        <div className='ala'>
-            <div className="form">
+        <div className='contenedor-general'>
+            <div className="contenedor-log-reg">
+                {/* cabecera dinamica */}
                 <div className="tab-header">
-                    <div onClick={showSidebar} className={sidebar ? 'active' : ''}>Registro</div>
-                    <div onClick={showSidebar} className={sidebar ? '' : 'active'}>Inicio</div>
+                    <div onClick={changeView} className={view ? '' : 'active'}>Inicio</div>
+                    <div onClick={changeView} className={view ? 'active' : ''}>Registro</div>
                 </div>
-                <div className="image">
-                    <img src={Imagen1} alt="" />
-                    <img src={Imagen2} alt="" />
+                <div className="tab-imagenes">
+                    <img src={Imagen1} alt="..." />
+                    <img src={Imagen2} alt="..." />
                 </div>
                 <div className="tab-content">
-                    <div className={sidebar ? 'tab-body active' : 'tab-body'}>
-                        <div className="form-element">
-                            <i className="fas fa-envelope icon"></i>
-                            <input type="text" placeholder="Email" defaultValue={'edward@gmail.com'} />
-                        </div>
-                        <div className="form-element">
-                            <i className="fas fa-user icon"></i>
-                            <input type="text" placeholder="Username" defaultValue={'edward'} />
-                        </div>
-                        <div className="form-element">
-                            <i className="fas fa-key icon"></i>
-                            <input type="password" placeholder="Password" defaultValue={'edward'} />
-                        </div>
-                        <div className="form-element-label">
-                            <input type="checkbox" id='remenber_me' />
-                            <label htmlFor='remenber_me'>Remember</label>
-                        </div>
-                        <div className="form-element ">
-                            <NavLink to="/mi_cuenta">
-                                <button>
-                                    Registro
-                                </button>
-                            </NavLink>
+                    <div className={view ? 'tab-body' : 'active'}>
+                        {/* <h1>1</h1> */}
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Email</label>
+                                <input name="email" onChange={(e) => setEmail(e.target.value)} type="email" className="form-control mt-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email @gmail.com" autoFocus />
 
-                        </div>
+
+                                {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else</small> */}
+                            </div>
+                            <div className="form-group mt-2">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input name="contrasenia" onChange={(e) => setContrasenia(e.target.value)} type="email" className="form-control mt-1" id="exampleInputEmail1" placeholder="Password" />
+                            </div>
+                            <div className="form-group form-check mt-3 mb-3">
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                            </div>
+                            {error && <p className="text-danger">Ocurrio un error !!!</p>}
+                            {/* <button className="btn btn-primary mt-3">Submit</button> <br /><br /> */}
+                            
+                            <button className="pushable"
+                                onClick={clickLogin}
+                            >
+                                <span className="front">
+                                    Submit
+                                </span>
+
+                            </button>
+                        </form>
                     </div>
 
 
-                    <div className={sidebar ? 'tab-body' : 'tab-body active'}>
-                        <div className="form-element">
-                            <i className="fas fa-envelope icon"></i>
-                            <input
-                                type="text"
-                                name="email"
-                                placeholder="Email"
-                                onChange={(e) => setEmail(e.target.value)} />
-                        </div>
-                        <div className="form-element">
-                            <i className="fas fa-key icon"></i>
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                onChange={(e) => setPassword(e.target.value)} />
-                        </div>
-                        {error && <div className="txt-error">{error}</div>}
-                        <div className="form-element">
-                            {/* <NavLink to="/mi_cuenta"> */}
-                            <button
-                                onClick={
-                                    clickLogin
-                                }
-                                value= {loading ? "Loading..." : "Login"} >
-                                Iniciar como admin
-                            </button>
-                            <NavLink to="user/mis_cursos">
-                                <button>
-                                    Iniciar con Docente
-                                </button>
-
-                            </NavLink>
-
-                            {/* </NavLink> */}
-
-
-
+                    <div className={view ? 'active' : 'tab-body'}>
+                        <div className="content">
+                            <h1>2</h1>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
