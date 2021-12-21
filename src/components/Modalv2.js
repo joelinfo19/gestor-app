@@ -1,11 +1,14 @@
 import { Modal, Button } from "react-bootstrap"
 
-export default function Modalv2({ title, children, show, setShow, saveClick }) {
+export default function Modalv2({ title, children, show, setShow, saveClick, size }) {
 
 	const handleClose = () => setShow(false);
 	return (
 		<>
-			<Modal show={show} onHide={handleClose}>
+			<Modal
+				size={size}
+				show={show}
+				onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title>{title}</Modal.Title>
 				</Modal.Header>

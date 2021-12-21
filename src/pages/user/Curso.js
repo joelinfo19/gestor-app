@@ -103,16 +103,69 @@ export default function Curso() {
 	const [contenido, setContenido] = useState(
 		[
 			{
-				descripcion: 'Unidad I',
+				descripcion: 'Introduccion',
 				capitulos: [
 					{
-						descripcion: 'Capitulo 1',
-						temas: []
+						descripcion: 'Historia',
+						temas: [
+						]
 					}
 				]
 			},
-
 		])
+	const buscarContenido = (event, iUnidad, iCapitulo) => {
+		const { name, value } = event.target
+
+		const num = name.match(/\d+/g)
+		const letr = name.match(/[a-zA-Z]+/g)
+
+		const newSetContenido = contenido.map((unidad, u) => {
+			const newCapitulos = unidad.capitulos.map((capitulo, c) => {
+				if (iUnidad == u && iCapitulo == c) {
+					//editar descripcion del capitulo
+					if (letr == "tema") {
+						const newTemas = capitulo.temas.map((tema, it) =>
+							num == it ?
+								value
+								:
+								tema
+						)
+						return {
+							descripcion: capitulo.descripcion,
+							temas: newTemas
+						}
+					}
+					if (letr == "cap") {
+						return {
+							...capitulo,
+							descripcion: value,
+						}
+					}
+				} else {
+					return capitulo
+				}
+			})
+			return { ...unidad, capitulos: newCapitulos }
+		})
+
+		setContenido(newSetContenido)
+	}
+	const agregarUnidad = () => {
+		setContenido(oldArray => [...oldArray,
+		{
+			descripcion: '',
+			capitulos: [
+				{
+					descripcion: '',
+					temas: []
+				}
+			]
+		}])
+	}
+	const agregarCapitulo = (iUnidad) => {
+		contenido[iUnidad].capitulos.push({ descripcion: '', temas: [] })
+		setContenido(contenido.map(unidad => unidad))
+	}
 
 	const agregarTema = (iUnidad, iCapitulo) => {
 
@@ -122,7 +175,7 @@ export default function Curso() {
 					if (index == iCapitulo) {
 						return {
 							descripcion: capitulo.descripcion,
-							temas: [...capitulo.temas, { [capitulo.temas.length]: 'Nuevo temas' }]
+							temas: [...capitulo.temas, 'Nuevo tema']
 						}
 					} else {
 						return capitulo
@@ -146,10 +199,9 @@ export default function Curso() {
 				const capitulosActualizados = unidad.capitulos.map((capitulo, index) => {
 					if (index == iCapitulo) {
 						const newTemas = capitulo.temas.map((tema, it) =>
-							name == it ?
-								{ [name]: value }
-								:
-								tema
+							name == "tema" + it
+								? { [name]: value }
+								: tema
 						)
 						return {
 							descripcion: capitulo.descripcion,
@@ -167,26 +219,10 @@ export default function Curso() {
 		}
 		)
 		setContenido(updatedObject)
-
-
-
 		// setTemas({ ...temas, [name]: value })
-
-		// console.log(name, value)
 	}
 	console.log(contenido)
-	const [unidades, setUnidades] = useState([
-		{
-			descripcion: 'Unidad I',
-			tap: true,
-			key: 0
-		},
-		{
-			descripcion: 'Unidad II',
-			tap: false,
-			key: 1
-		},
-	])
+
 	const guardarContendino = () => {
 		console.log('Guardando ...')
 	}
@@ -242,6 +278,7 @@ export default function Curso() {
 							onClick={() => { setShowModal(true) }}
 						>Agregar temas</button>
 						<Modalv2
+							size="lg"
 							show={showModal}
 							setShow={setShowModal}
 							title='Temas del curso'
@@ -258,7 +295,11 @@ export default function Curso() {
 													</Nav.Item>
 												)
 											}
-											<button> + </button>
+											<Button
+												className='btn-secondary'
+												onClick={()=> agregarUnidad()}
+											> +
+											</Button>
 
 										</Nav>
 									</Col>
@@ -267,24 +308,37 @@ export default function Curso() {
 											{
 												contenido.map((unidad, iUnidad) =>
 													<Tab.Pane key={iUnidad} eventKey={unidad.descripcion}>
+														<div className='d-flex'>
+															<h5>Unidad {`${iUnidad + 1}:`}</h5>
+															<input defaultValue={unidad.descripcion} />
+															<Button onClick={() => agregarCapitulo(iUnidad)}> + </Button>
+														</div>
 														{
 															unidad.capitulos.map((capitulo, iCap) =>
 																<div key={iCap}>
-																	<span>{capitulo.descripcion}</span>
-																	<Button> + </Button>
-																	<input ></input>
-
-																	<span>Temas:</span>
-																	<Button onClick={() => agregarTema(iUnidad, iCap)}> + temas</Button>
-																	<ul>
-																		{
-																			capitulo.temas.map((tema, i) =>
-																				<li key={i}>
-																					<input name={i} onChange={(event) => handleOnChange(event, iUnidad, iCap)} ></input>
-																				</li>
-																			)
-																		}
-																	</ul>
+																	<div>
+																		<span>{`Capítulo ${iCap + 1}: `}</span>
+																		<input name={"cap" + iCap} onChange={(event) => buscarContenido(event, iUnidad, iCap)} />
+																	</div>
+																	<div>
+																		<div>
+																			<span>Temas:</span>
+																			<Button onClick={() => agregarTema(iUnidad, iCap)}> + temas</Button>
+																		</div>
+																		<ul>
+																			{
+																				capitulo.temas.map((tema, i) =>
+																					<li key={i}>
+																						<input
+																							name={"tema" + i}
+																							onChange={(event) => buscarContenido(event, iUnidad, iCap)}
+																							defaultValue={tema}
+																						/>
+																					</li>
+																				)
+																			}
+																		</ul>
+																	</div>
 																</div>
 															)
 														}
