@@ -1,8 +1,11 @@
 import { Modal, Button } from "react-bootstrap"
 
-export default function Modalv2({ title, children, show, setShow, saveClick, size }) {
+export default function Modalv2({ title, children, show, setShow, saveClick, closeClick,size }) {
 
-	const handleClose = () => setShow(false);
+	const handleClose = () =>{
+		setShow(false);
+		closeClick()
+	}
 	return (
 		<>
 			<Modal
