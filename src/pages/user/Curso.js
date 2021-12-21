@@ -17,6 +17,8 @@ export default function Curso() {
   const [matricula, setMatricula] = useState({})
   const [curso, setCurso] = useState({})
 
+  const [indice, setIndice] = useState(0)
+
   useEffect(() => {
     fetch(`${url}/matriculas/${courseId}`, {
       method: 'GET'
@@ -120,6 +122,9 @@ export default function Curso() {
     const letr = name.match(/[a-zA-Z]+/g)
 
     const newSetContenido = contenido.map((unidad, u) => {
+      if (letr == 'unidad' && iUnidad == u) {
+        unidad.descripcion = value
+      }
       const newCapitulos = unidad.capitulos.map((capitulo, c) => {
         if (iUnidad == u && iCapitulo == c) {
           //editar descripcion del capitulo
@@ -164,8 +169,10 @@ export default function Curso() {
   }
   const eliminarUnidad = (index) => {
     setContenido(contenido.filter((unidad, i) => i != index ? unidad : null))
-    console.log(contenido)
+    setIndice(Number(index) - 1)
   }
+  console.log(indice)
+
   const agregarCapitulo = (iUnidad) => {
     contenido[iUnidad].capitulos.push({ descripcion: '', temas: [] })
     setContenido(contenido.map(unidad => unidad))
@@ -173,21 +180,40 @@ export default function Curso() {
   const eliminarCapitulo = (iUnidad, iCapitulo) => {
     const newContenido = contenido.map((unidad, u) => {
       if (iUnidad == u) {
-        const newUnidad = unidad.capitulos.filter((capitulo, c) => {
+        const newCapitulos = unidad.capitulos.filter((capitulo, c) => {
           if (iCapitulo != c) {
             return capitulo
           }
         })
+        return { ...unidad, capitulos: newCapitulos }
 
-        return { ...unidad, capitulos: newUnidad }
       } else {
         return unidad
       }
     })
+    setContenido(newContenido)
+  }
+  const eliminarTema = (iUnidad, iCapitulo, iTema) => {
+    const newContenido = contenido.map((unidad, u) => {
+      if (iUnidad == u) {
+        const newCapitulos = unidad.capitulos.map((capitulo, c) => {
+          const newTemas = capitulo.temas.filter((tema, i) => {
+            if (iCapitulo == c && iTema != i) {
+              return tema
+            }
+          })
+          return { ...capitulo, temas: newTemas }
 
+        })
+        return { ...unidad, capitulos: newCapitulos }
+
+      } else {
+        return unidad
+      }
+    })
     setContenido(newContenido.map(unidad => unidad))
   }
-  console.log(contenido)
+
   const agregarTema = (iUnidad, iCapitulo) => {
 
     const updatedObject = contenido.map((unidad, i) => {
@@ -251,7 +277,7 @@ export default function Curso() {
 
   }
 
-  const [indice, setIndice] = useState(0)
+
 
   return (
     <div className='container'>
@@ -311,7 +337,7 @@ export default function Curso() {
               saveClick={guardarContendino}
               closeClick={cerrarModal}
             >
-              <Tab.Container id="left-tabs-example" defaultActiveKey="0">
+              <Tab.Container id="left-tabs-example" defaultActiveKey='0'>
                 <Row>
                   <Col sm={4}>
                     <Nav variant="pills" className="flex-column">
@@ -349,7 +375,10 @@ export default function Curso() {
                           <Tab.Pane key={iUnidad} eventKey={iUnidad}>
                             <div className='d-flex'>
                               <h5>Unidad {`${iUnidad + 1}:`}</h5>
-                              <input defaultValue={unidad.descripcion} />
+                              <input
+                                name={"unidad" + iUnidad}
+                                value={unidad.descripcion || ''}
+                                onChange={(event) => handleOnChange(event, iUnidad)} />
                               <Button onClick={() => agregarCapitulo(iUnidad)}> + </Button>
                             </div>
                             {
@@ -385,6 +414,14 @@ export default function Curso() {
                                               onChange={(event) => handleOnChange(event, iUnidad, iCap)}
                                               value={tema || ''}
                                             />
+                                            <Button
+                                              className='btn-danger btn-sm'
+                                              onClick={() => eliminarTema(iUnidad, iCap, i)}
+                                            >
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                              </svg>
+                                            </Button>
                                           </li>
                                         )
                                       }
