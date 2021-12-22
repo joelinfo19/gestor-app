@@ -2,14 +2,25 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
-
+import CardGroup from 'react-bootstrap/CardGroup'
 const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 	return (
+		
+		[
+		'Dark',
+		].map((variant, idx) => (
+		<CardGroup>
 		<Card
-			bg="Light"
+			border="dark"
 			className="m-2"
+			bg={variant.toLowerCase()}
+	  		key={idx}
+	  		text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+	  		style={{ width: '35rem' }}
+	  		
 		>
 			<Link className="text-decoration-none" to={idMatricula}>
+			<Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHjg3q2uyh-vP_XK9VxLONEhog5NmIzG00hQ&usqp=CAU" />
 				<Card.Header>{codigo}</Card.Header>
 				<Card.Body>
 					<Card.Title>{nombre}</Card.Title>
@@ -19,6 +30,8 @@ const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 				</Card.Body>
 			</Link>
 		</Card>
+		</CardGroup>
+		))
 
 	)
 }
