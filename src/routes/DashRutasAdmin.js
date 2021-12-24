@@ -10,7 +10,7 @@ import Sidebar from '../components/Sidebar'
 import Docentes from '../pages/admin/Docentes'
 import Cursos from '../pages/admin/Cursos'
 import AsignarHorarios from '../pages/admin/AsignarHorarios'
-import Sidebar_items from '../assets/JsonData/sidebar_routes.json'
+import Sidebar_items from '../assets/JsonData/sidebar_admin_routes.json'
 
 import Perfil from '../pages/user/Perfil'
 
@@ -21,7 +21,7 @@ import './DashRutas.css'
 export default function DashRutas() {
     return (
         <>
-            <div className="contenedor-dash">
+            <div className="contenedor">
                 <Navbar />
                 <div className="flex">
                     <Sidebar jsonRutas={Sidebar_items} />

@@ -1,15 +1,25 @@
 .contenedor {
-    /* border: 2px solid green; */
+    /* border: 5px solid green; */
     display: flex;
-    height:100vh;
-    margin:0;
-    flex-direction: column;
-    
+    flex-direction: column; 
     /* overflow:auto; */
 }
 .flex {
+    /* border: 5px solid blue; */
     display: flex;
-    position: relative;
-    height: 100vh;
+    /* position: relative; */
+    height: 87vh;
     
+}
+
+.content {
+    /* border: 5px solid palevioletred; */
+    /* margin-top: 5%; */
+    /* border: 5px solid forestgreen; */
+    max-width: 100%;
+    height: 98%;
+    /* background: linear-gradient(white 0%, #e6e4ff 70%); */
+    background-color: #f7f6ff;
+    margin-left: 20px;
+    overflow: auto;
 }

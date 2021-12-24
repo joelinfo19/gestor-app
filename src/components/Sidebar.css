@@ -1,13 +1,18 @@
 .sidebar {
+    margin-top: -55px;
+    margin-left: 15px;
     background-color: var(--sidebar-bg);
-    width: 17rem;
-    min-width: 17rem;
-    height: 100%;
-    /* box-shadow: var(--box-shadow); */
-    /* border-right: 1px solid #ccc; */
+    min-width: 15rem;
+
+    /* min-width: 17rem; */
+    height: 106%;
+    border-radius: 30px;
+    
+    /* border: 5px solid red; */
 }
 
 .sidebar__logo {
+    padding-top: 20px;
     height: 150px;
     display: flex;
     align-items: center;
@@ -18,47 +23,49 @@
     height: 150px;
 }
 
-.sidebar__item {
-    padding: 0 20px;
+.sidebar .user_name p {
+    font-size: 20px;
+    margin-top: 5px;
+    /* border: 1px solid yellow; */
+    text-align: center;
+    color: white;
 }
-
-.sidebar__item-inner {
-    padding: 15px 25px;
-    display: flex;
-    align-items: center;
+.sidebar .user_carga p {
     font-weight: 600;
-    transition: color 0.3s ease 0s;
-    border-radius: 5px;
+    background-color: #f4ad2f;
+    margin: 5px 50px;
+    padding: 5px;
+    border-radius: 20px;
+    /* border: 3px solid palevioletred; */
+    color: black;
+    text-align: center;
+}
+
+.sidebar__links {
+    /* border: 12px solid yellow; */
+    margin-top: 25px;
+    width: 100%;
+    height: 60%;
+    background-color: var(--sidebar-links-bg);
+    border-radius: 30px;
+}
+
+.sidebar__links a {
+    display: block;
+    /* border: 1px solid greenyellow; */
+    text-decoration: none;
+    padding: 15px 30px;
     color: var(--txt-color-side);
-
-    /* transition: .3s; */
 }
 
-.sidebar__item-inner > i {
-    /* border: 3px solid green; */
-    margin-right: 10px;
-    /* padding: 10px; */
-    font-size: 1.5rem;
+.sidebar__links a.active {
+    color: var(--txt-color-side-active);
+    font-weight: 700;
+    /* background-color: greenyellow; */
 }
 
-.sidebar__item-inner > span {
-    text-transform: capitalize;
+.sidebar__links a span {
+    margin-left: 10px;
 }
 
-.sidebar__item-inner:hover {
-    color: var(--hover-color-txt);
-    /* background-color: var(--hover-side); */
-    /* transition: .3s; */
-    
-}
 
-.sidebar a.active{
-    border-radius: var(--border-radius);
-    background-image: linear-gradient(
-        to right,
-        var(--main-color),
-        var(--second-color)
-    );
-    color: var(--txt-white);
-    /* background-color: green; */
-}
