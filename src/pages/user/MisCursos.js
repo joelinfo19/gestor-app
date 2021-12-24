@@ -9,7 +9,7 @@ const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 		[
 		'Dark',
 		].map((variant, idx) => (
-		<CardGroup>
+		<CardGroup key={idx}>
 		<Card
 			border="dark"
 			className="m-2"

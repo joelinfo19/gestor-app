@@ -108,10 +108,10 @@ export default function Curso() {
   const [contenido, setContenido] = useState(
     [
       {
-        descripcion: 'Introduccion',
+        descripcion: '',
         capitulos: [
           {
-            descripcion: 'Historia',
+            descripcion: '',
             temas: [
             ]
           }
@@ -174,7 +174,6 @@ export default function Curso() {
     setContenido(contenido.filter((unidad, i) => i != index ? unidad : null))
     setIndice(Number(index) - 1)
   }
-  console.log(indice)
 
   const agregarCapitulo = (iUnidad) => {
     contenido[iUnidad].capitulos.push({ descripcion: '', temas: [] })
@@ -200,13 +199,16 @@ export default function Curso() {
     const newContenido = contenido.map((unidad, u) => {
       if (iUnidad == u) {
         const newCapitulos = unidad.capitulos.map((capitulo, c) => {
-          const newTemas = capitulo.temas.filter((tema, i) => {
-            if (iCapitulo == c && iTema != i) {
-              return tema
-            }
-          })
-          return { ...capitulo, temas: newTemas }
-
+          if (iCapitulo == c) {
+            const newTemas = capitulo.temas.filter((tema, i) => {
+              if (iTema != i) {
+                return tema
+              }
+            })
+            return { ...capitulo, temas: newTemas }
+          } else {
+            return capitulo
+          }
         })
         return { ...unidad, capitulos: newCapitulos }
 
@@ -214,7 +216,7 @@ export default function Curso() {
         return unidad
       }
     })
-    setContenido(newContenido.map(unidad => unidad))
+    setContenido(newContenido)
   }
 
   const agregarTema = (iUnidad, iCapitulo) => {
@@ -225,7 +227,7 @@ export default function Curso() {
           if (index == iCapitulo) {
             return {
               descripcion: capitulo.descripcion,
-              temas: [...capitulo.temas, 'Nuevo tema']
+              temas: [...capitulo.temas, '']
             }
           } else {
             return capitulo
@@ -280,207 +282,186 @@ export default function Curso() {
 
   }
 
-
-
   return (
     <div className='container'>
-			<div className='row'>
-      <ListGroup>
-				<div className='col-5'>
-        
-					<h2>{curso.nombre}</h2>
-					<div>
-          
-          <ListGroup.Item variant="info"><strong>Codigo: </strong><span>{curso.codigo}</span></ListGroup.Item>
-          
-					</div>
-					<div>
-          <ListGroup.Item variant="primary"><strong>Grupo: </strong><span>{curso.grupo}</span></ListGroup.Item>
-					
-						
-					</div>
-					<div>
-          <ListGroup.Item variant="info"><strong>Categoria: </strong><span>{curso.categoria}</span></ListGroup.Item>
-          
-						
-					</div>
-					<div>
-          <ListGroup.Item variant="primary"><strong>Horario: </strong><span> .... </span></ListGroup.Item>
-          
-						
-					</div>
-					<div>
-          <ListGroup.Item variant="info"><strong>Creditos: </strong><span>{curso.creditos}</span></ListGroup.Item>
-          
-						
-					</div>
-					<div>
-          <ListGroup.Item variant="primary"><strong>Tipo: </strong><span>{curso.tipo}</span></ListGroup.Item>
-          
-						
-					</div>
-				</div>
-      </ListGroup>
-      <Col>
-				<div className="col-7">
-					<form onSubmit={onSubmit}>
-						<div className="mb-3">
-            <h1> </h1>
-            	<label className="form-label"><h4>Subir Silabus</h4></label>
-              
-							<input
-								className="form-control"
-								type="file"
-								name="file"
-								accept=".pdf"
-								onChange={(e) => onChange(e)}
-							/>
-						</div>
-						<button className='btn btn-primary' type="submit">Guardar</button>
-					</form>
-					<div className='btn-group pt-2'>
-						<button class="btn btn-success" onClick={getPdf} >Ver pdf</button>
-						<button className='btn btn-secondary' onClick={() => { setShowModal(true) }}>Agregar temas</button>
-            <Modalv2
-              size="lg"
-              show={showModal}
-              setShow={setShowModal}
-              title='Temas del curso'
-              saveClick={guardarContendino}
-              closeClick={cerrarModal}
-            >
-              <Tab.Container id="left-tabs-example" defaultActiveKey='0'>
-                <Row>
-                  <Col sm={4}>
-                    <Nav variant="pills" className="flex-column">
-                      {
-                        contenido.map((unidad, index) =>
-                          <div key={index} className="position-relative">
-                            <Nav.Item onClick={() => setIndice(index)}>
-                              <Nav.Link eventKey={index}>
-                                Unidad {index + 1}
+      <div className='row'>
+        <ListGroup>
+          <div className='col-5'>
+            <h2>{curso.nombre}</h2>
+            <div>
+              <ListGroup.Item variant="info"><strong>Codigo: </strong><span>{curso.codigo}</span></ListGroup.Item>
+            </div>
+            <div>
+              <ListGroup.Item variant="primary"><strong>Grupo: </strong><span>{curso.grupo}</span></ListGroup.Item>
+            </div>
+            <div>
+              <ListGroup.Item variant="info"><strong>Categoria: </strong><span>{curso.categoria}</span></ListGroup.Item>
+            </div>
+            <div>
+              <ListGroup.Item variant="primary"><strong>Horario: </strong><span> .... </span></ListGroup.Item>
+            </div>
+            <div>
+              <ListGroup.Item variant="info"><strong>Creditos: </strong><span>{curso.creditos}</span></ListGroup.Item>
+            </div>
+            <div>
+              <ListGroup.Item variant="primary"><strong>Tipo: </strong><span>{curso.tipo}</span></ListGroup.Item>
+            </div>
+          </div>
+        </ListGroup>
+        <Col>
+          <div className="col-7">
+            <form onSubmit={onSubmit}>
+              <div className="mb-3">
+                <h1> </h1>
+                <label className="form-label"><h4>Subir Silabus</h4></label>
 
-                                <button  onClick={() => eliminarUnidad(index) }
-                                  className={`${(index == indice ? '' : 'd-none')} bg-transparent position-absolute top-50 end-0 translate-middle-y`}
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03 " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                  </svg> 
-                                </button>
-                              </Nav.Link>
-                            </Nav.Item>
-                          </div>
-                        )
-                      }
-                      <Button className='btn-success'onClick={()=> agregarUnidad()}>+Unidad</Button>
+                <input
+                  className="form-control"
+                  type="file"
+                  name="file"
+                  accept=".pdf"
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <button className='btn btn-primary' type="submit">Guardar</button>
+            </form>
+            <div className='btn-group pt-2'>
+              <button className="btn btn-success" onClick={getPdf} >Ver pdf</button>
+              <button className='btn btn-secondary' onClick={() => { setShowModal(true) }}>Agregar temas</button>
+              <Modalv2
+                size="lg"
+                show={showModal}
+                setShow={setShowModal}
+                title='Temas del curso'
+                saveClick={guardarContendino}
+                closeClick={cerrarModal}
+              >
+                <Tab.Container id="left-tabs-example" defaultActiveKey='0'>
+                  <Row>
+                    <Col sm={4}>
+                      <Nav variant="pills" className="flex-column">
+                        {
+                          contenido.map((unidad, index) =>
+                            <div key={index} className="position-relative">
+                              <Nav.Item onClick={() => setIndice(index)}>
+                                <Nav.Link eventKey={index}>
+                                  Unidad {index + 1}
 
-                    </Nav>
-                  </Col>
-                  <Col sm={8}>
-                    <Tab.Content>
-                      {
-                        contenido.map((unidad, iUnidad) =>
-                          <Tab.Pane key={iUnidad} eventKey={iUnidad}>
-                            <Row>
-                            <div className='d-flex'>
-                            <Form.Label column lg={3}><h5>Unidad {`${iUnidad + 1}:`}</h5></Form.Label>
-                            <Col>
-                            <Form.Control type="text" placeholder="Introducir Unidad" input
-                                name={"unidad" + iUnidad}
-                                value={unidad.descripcion || ''}
-                                onChange={(event) => handleOnChange(event, iUnidad)}/>
-                              
-                            </Col>
-                            <Button className='btn-success'onClick={() => agregarCapitulo(iUnidad)}>+Capitulos</Button>
+                                  <button onClick={() => eliminarUnidad(index)}
+                                    className={`${(index == indice ? '' : 'd-none')} bg-transparent position-absolute top-50 end-0 translate-middle-y`}
+                                  >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03 " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                    </svg>
+                                  </button>
+                                </Nav.Link>
+                              </Nav.Item>
                             </div>
-                            </Row>
-                            {
-                              unidad.capitulos.map((capitulo, iCap) =>
-                                <div key={iCap}>
-                                  <Row>
-                                  <div>
-                                  <Form.Label column lg={3}><span>{`Capítulo ${iCap + 1}: `}</span></Form.Label>
-                                  
-                                  <form class="row g-3">
+                          )
+                        }
+                        <Button className='btn-success' onClick={() => agregarUnidad()}>+Unidad</Button>
+
+                      </Nav>
+                    </Col>
+                    <Col sm={8}>
+                      <Tab.Content>
+                        {
+                          contenido.map((unidad, iUnidad) =>
+                            <Tab.Pane key={iUnidad} eventKey={iUnidad}>
+                              <Row>
+                                <div className='d-flex'>
+                                  <Form.Label column lg={3}>Unidad {`${iUnidad + 1}:`}</Form.Label>
                                   <Col>
-                                  <div class="col-auto">
-                                  <Form.Control type="text" placeholder="Introducir Capitulo" input
-                                      name={"cap" + iCap}
-                                      value={capitulo.descripcion || ''}
-                                      onChange={(event) => handleOnChange(event, iUnidad, iCap)} />
-                                  
-                                  </div>
-                                  </Col> 
-                                  <div class="col-auto">
-                                    <Button  className='btn-danger btn-sm' onClick={() => eliminarCapitulo(iUnidad, iCap)}>
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03 " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                      </svg>
-                                    </Button>
-                                    </div>
-                                    </form>
-                                    
-                                    
-                                    
-                                    
-                                  </div>
-                                  </Row>
-                                  <br/>
-                                  <div>
-                                    <div>
-                                      <span></span>
-                                      <Button onClick={() => agregarTema(iUnidad, iCap)}> +Temas</Button>
-                                    </div>
-                                    <ul>
-                                      {
-                                        capitulo.temas.map((tema, i) =>
-                                          <li key={i}>
-                                            <Row>
-                                            <Form.Label column lg={4} ><span>Nuevo Tema</span></Form.Label>
-                                            <form class="row g-1">
-                                            <div class="col-auto">
-                                            <Form.Control type="text" placeholder="Introducir Nuevo Tema" input
-                                              name={"tema" + i}
-                                              onChange={(event) => handleOnChange(event, iUnidad, iCap)}
-                                              value={tema || ''} />
-																						</div>
-                                            <Col>
-                                            <div >
-                                            <Button className='btn-secondary btn-sm' onClick={() => eliminarTema(iUnidad, iCap, i)}>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                    <input type="text" placeholder="Título de la Unidad"
+                                      name={"unidad" + iUnidad}
+                                      value={unidad.descripcion || ''}
+                                      onChange={(event) => handleOnChange(event, iUnidad)} />
+
+                                  </Col>
+                                  <Button className='btn-success' onClick={() => agregarCapitulo(iUnidad)}>+Capitulos</Button>
+                                </div>
+                              </Row>
+                              {
+                                unidad.capitulos.map((capitulo, iCap) =>
+                                  <div key={iCap}>
+                                    <Row>
+                                      <div>
+                                        <Form.Label column lg={3}><span>{`Capítulo ${iCap + 1}: `}</span></Form.Label>
+
+                                        <form className="row g-3">
+                                          <Col>
+                                            <div className="col-auto">
+                                              <input type="text" placeholder="Título del Capítulo"
+                                                name={"cap" + iCap}
+                                                value={capitulo.descripcion || ''}
+                                                onChange={(event) => handleOnChange(event, iUnidad, iCap)} />
+
+                                            </div>
+                                          </Col>
+                                          <div className="col-auto">
+                                            <Button className='btn-danger btn-sm' onClick={() => eliminarCapitulo(iUnidad, iCap)}>
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03 " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                               </svg>
                                             </Button>
-                                            </div>
-                                            </Col>
-                                            </form>
-                                            </Row>
-                                          </li>
-                                        )
-                                      }
-                                    </ul>
+                                          </div>
+                                        </form>
+
+
+
+
+                                      </div>
+                                    </Row>
+                                    <br />
+                                    <div>
+                                      <div>
+                                        <span></span>
+                                        <Button onClick={() => agregarTema(iUnidad, iCap)}> +Temas</Button>
+                                      </div>
+                                      <ul>
+                                        {
+                                          capitulo.temas.map((tema, i) =>
+                                            <li key={i}>
+                                              <Row>
+                                                <form className="row g-1">
+                                                  <div className="col-auto">
+                                                    <input type="text" placeholder="Nuevo Tema"
+                                                      name={"tema" + i}
+                                                      onChange={(event) => handleOnChange(event, iUnidad, iCap)}
+                                                      value={tema || ''}
+                                                    />
+                                                  </div>
+                                                  <Col>
+                                                    <div >
+                                                      <Button className='btn-secondary btn-sm' onClick={() => eliminarTema(iUnidad, iCap, i)}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                        </svg>
+                                                      </Button>
+                                                    </div>
+                                                  </Col>
+                                                </form>
+                                              </Row>
+                                            </li>
+                                          )
+                                        }
+                                      </ul>
+                                    </div>
                                   </div>
-                                </div>
-                              )
-                            }
-                          </Tab.Pane>
-                        )
-                      }
-                    </Tab.Content>
-                  </Col>
-                </Row>
-              </Tab.Container>
-            </Modalv2>
+                                )
+                              }
+                            </Tab.Pane>
+                          )
+                        }
+                      </Tab.Content>
+                    </Col>
+                  </Row>
+                </Tab.Container>
+              </Modalv2>
+            </div>
           </div>
-        </div>
         </Col>
       </div >
-
-
-
-
-
-
     </div >
   )
 }
