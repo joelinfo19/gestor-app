@@ -5,6 +5,7 @@ import './Cursos.css'
 import { Button, Modal } from 'react-bootstrap'
 import { TimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
+import CSVCursos from "../../components/CSVCursos"
 
 const Modalv2 = ({ show, setShow, title, children }) => {
 
@@ -267,6 +268,8 @@ export default function Cursos() {
             }
           </tbody>
         </table>
+
+        <CSVCursos/>
 
         <Modalv2 show={showModal} setShow={setShowModal} title={newCourse ? "Registra nuevo curso" : "Editar Curso"}>
           <form className="row g-3">
