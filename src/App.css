@@ -9,10 +9,12 @@ body{
 }
 
 :root{
-    --navbar-bg: #edf3fa;
-    --sidebar-bg: #edf3fa; /*#92c46b*/
+    --navbar-bg: #f7f6ff;   /*#6100d4*/
+    --sidebar-bg: #091322  ; /*#92c46b*/
+    --sidebar-links-bg: #162349  ; /*#92c46b*/
     --txt-color-nav: #000;
-    --txt-color-side: #000;
+    --txt-color-side: #ccc;
+    --txt-color-side-active: #fff;
     --txt-white: #fff;
     --hover-side: #1179f4;
     --hover-color-txt: #1179f4; 
@@ -39,8 +41,13 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.7px;
-    max-width: 100vw;
-    max-height: 100vw;
+    height: 100vh;
+    width: 100vw;
+    /* border: 2px solid greenyellow; */
+    /* overflow: hidden; */
+    width: 100%;
+	margin: auto;
+
 }
 
 a {

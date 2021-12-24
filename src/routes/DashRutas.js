@@ -12,23 +12,38 @@ import Perfil from "../pages/user/Perfil"
 
 import Sidebar_items from '../assets/JsonData/sidebar_user_routes.json'
 
+import PrivateRouteUser from './PrivateRouteUser'
 import './DashRutas.css'
 
 export default function DashRutas() {
     return (
-        <div className="contenedor">
-            <Navbar />
-            <div className="flex">
-                <Sidebar jsonRutas={Sidebar_items} />
-                <div className="content">
-                    <Routes>
-                        <Route exact path='/mis_cursos' element={<MisCursos />} />
-                        <Route exact path='/mis_cursos/:courseId' element={<Curso />} />
+        <>
+            <div className="contenedor">
+                <Navbar />
+                <div className="flex">
+                    <Sidebar jsonRutas={Sidebar_items} />
+                    <div className="content">
+                        <Routes>
+                            <Route exact path='/mis_cursos' element={
+                                <PrivateRouteUser conRol="regular">
+                                    <MisCursos />
+                                </PrivateRouteUser>
+                            } />
+                            <Route exact path='/mis_cursos/:courseId' element={
+                                <PrivateRouteUser conRol="regular">
+                                    <Curso />
+                                </PrivateRouteUser>
+                            } />
 
-                        <Route exact path='/perfil' element={<Perfil />} />
-                    </Routes>
+                            <Route exact path='/perfil' element={
+                                <PrivateRouteUser conRol="regular">
+                                    <Perfil />
+                                </PrivateRouteUser> 
+                            } />
+                        </Routes>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

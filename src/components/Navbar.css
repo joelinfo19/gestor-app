@@ -1,17 +1,13 @@
 .navbar-contenido {
+    /* border: 5px solid orange; */
+    /* background: linear-gradient(to bottom right, white 0%, #e6e4ff 70%); */
     background-color: var(--navbar-bg);
-    /* padding: 10px 0px; */
-    /* padding-top: 10px; */
     padding: 15px;
     color: var(--txt-color-nav);
-    
-    /* position: fixed;
-    min-width: 100%;
-    top: 0;
-    left: 0; */
-
-    /* box-shadow: var(--box-shadow); */
-    /* border-bottom: 2px solid #ccc; */
+    /* position: fixed !important; */
+    min-height: 70px;
+    width: 100%;
+    padding-left: 20%;
 }
 
 .navContent {
@@ -38,16 +34,18 @@
     margin-right: 10px;
 }
 
-.user_name {
+/* .user_name {
     padding: 0 20px;
 }
 
 .user_carga {
     padding: 0 20px;
-}
+} */
 
 .btn_salir {
     padding: 0 20px;
+    /* position: fixed; */
+    z-index: 999;
 }
 
 .btn_salir :hover {

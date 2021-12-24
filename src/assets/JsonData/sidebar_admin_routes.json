@@ -1,27 +1,28 @@
 [
     {
+        "display_name": "Mi Perfil",
+        "route": "/admin/perfil",
+        "icon": "fal fa-home-alt"
+    },
+    {
         "display_name": "Lista Cursos",
         "route": "/admin/list_cursos",
-        "icon": "far fa-address-card"
+        "icon": "fal fa-copy"
     },
     {
         "display_name": "Lista Docentes",
         "route": "/admin/list_docentes",
-        "icon": "far fa-user"
+        "icon": "fad fa-users"
     },
     {
         "display_name": "Asignar Horarios",
         "route": "/admin/asignar_horarios",
-        "icon": "far fa-clock"
+        "icon": "fad fa-clock"
     },
     {
         "display_name": "Estadisticas",
         "route": "/admin/estadisticas",
-        "icon": "fas fa-chart-line"
-    },
-    {
-        "display_name": "Mi Perfil",
-        "route": "/admin/perfil",
-        "icon": "fas fa-male"
+        "icon": "fad fa-chart-pie-alt"
     }
+    
 ]

@@ -10,9 +10,9 @@
 
 
 import React, { useEffect, useState } from "react"
-import '../tabla_estilos.css'
 import './Docentes.css'
 import Modal from '../../components/Modal'
+import { LinearProgress } from "@material-ui/core"
 
 
 export default function Docentes() {
@@ -23,7 +23,8 @@ export default function Docentes() {
     const [consolaSeleccionada, setConsolaSeleccionada] = useState({})
     const [stateModalNuevo, setStateModalNuevo] = useState(false)
     const [stateModalEditar, setStateModalEditar] = useState(false)
-    const [searchTerm, setSearchTerm]= useState("")
+    const [searchTerm, setSearchTerm] = useState("")
+    const [csvDocentes, setCsvDocentes] = useState()
 
     const fetchApi = async () => {
         const response = await fetch(url)
@@ -57,7 +58,6 @@ export default function Docentes() {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify({
-                _id: consolaSeleccionada._id,
                 codDocente: consolaSeleccionada.codDocente,
                 email: consolaSeleccionada.email,
                 contrasenia: consolaSeleccionada.contrasenia,
@@ -65,7 +65,7 @@ export default function Docentes() {
                 apellido: consolaSeleccionada.apellido,
                 sexo: consolaSeleccionada.sexo,
                 categoria: consolaSeleccionada.categoria,
-                esAdmin: (consolaSeleccionada.esAdmin == "True"),
+                esAdmin: (consolaSeleccionada.esAdmin == "true"),
                 telefono: consolaSeleccionada.telefono,
             }),
             headers: {
@@ -118,14 +118,93 @@ export default function Docentes() {
             .then(res => fetchApi())
             .then(res => console.log(res))
     }
-    
+
+
+    // ****
+    // consumir csv
+    // ****
+
+    const leercsv = (evt) => {
+        let file = evt.target.files[0]
+        let reader = new FileReader();
+        reader.onload = (e) => {
+            // cuando el archivo se termina de cargar
+            let txt = e.target.result
+            var buscar = "\r"
+            txt = txt.replace(new RegExp(buscar, "g"), "")
+            setCsvDocentes(txt)
+
+        }
+        // leemos el contenido del archivo seleccionado
+        reader.readAsText(file)
+    }
+    const csvToArray = () => {
+        const delimiter = ","
+        const str = csvDocentes
+        console.log(str)
+        const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+        const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+        const arr = rows.map(function (row) {
+            const values = row.split(delimiter);
+            const el = headers.reduce(function (object, header, index) {
+                object[header] = values[index];
+                return object;
+            }, {});
+            return el;
+        });
+
+        // console.log(arr)
+        return arr
+    }
+
+
+    const post = (data) => {
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                fetchApi()
+                // console.log("----vista datos..")
+                // console.log(data)
+            })
+            .catch(error => console.log("error no se envio"))
+    }
+
+    const enviarCsvDocentes = () => {
+        console.log("click")
+        const array = csvToArray()
+        // console.log(array[1])
+        // console.log("----insertar vista inputs")
+        // console.log(consolaSeleccionada)
+        for (var i = 0; i < array.length; i++) {
+            var datos = array[i]
+            console.log(datos)
+            post(datos)
+        }
+        // var datos = array[0]
+        // console.log(datos)
+        // post(datos)
+    }
+    //     nombre,profesion,ocupacion
+    // roberto,ingeniero,cabinero
+    // carla,administradora,cajera
+
+
+
     return (
         <>
             {/* <h1>Docentes</h1> */}
-            <input 
+            <input type="file" onChange={leercsv} />
+            <button className='btn btn-secondary' onClick={enviarCsvDocentes}>Subir Data</button>
+            <input
                 type="text"
-                placeholder="search..."
-                onChange={(event)=>{
+                placeholder="Buscar por nombre..."
+                onChange={(event) => {
                     setSearchTerm(event.target.value)
                 }}
             />
@@ -138,8 +217,8 @@ export default function Docentes() {
             }}>
                 Nuevo docente
             </button>
-            <div className="tabla-div">
-                <table className="content-table">
+            <div className="table-responsive">
+                <table className="table">
                     <thead>
                         <tr>
                             <th>Codigo</th>
@@ -157,11 +236,11 @@ export default function Docentes() {
                     </thead>
                     <tbody>
                         {
-                            
+
                             // search(
-                                !docentes ? "cargando..." :
-                                docentes.filter((val)=>{
-                                    if (searchTerm==""){
+                            !docentes ? "cargando..." :
+                                docentes.filter((val) => {
+                                    if (searchTerm == "") {
                                         return val
                                     } else if (val.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
                                         return val
@@ -196,7 +275,7 @@ export default function Docentes() {
                                         </td>
                                     </tr>
                                 ))
-                                
+
                             // )
                         }
 
@@ -297,8 +376,8 @@ export default function Docentes() {
                                     autoComplete="off"
                                     onChange={handleInputChange} required /> */}
                                 <select className="field" name="esAdmin" onChange={handleInputChange}>
-                                    <option value="False">No</option>
-                                    <option value="True">Si</option>
+                                    <option value="false">No</option>
+                                    <option value="true">Si</option>
                                 </select>
                             </div>
                         </div>
@@ -334,7 +413,7 @@ export default function Docentes() {
             >
                 <div className="Contenido">
 
-                <form >
+                    <form >
                         <div className="form__grupo">
                             <div className="item1">
                                 <label>Id docente</label>
@@ -343,7 +422,7 @@ export default function Docentes() {
                                     type="search"
                                     name="codDocente"
                                     autoComplete="off"
-                                    value={consolaSeleccionada.codDocente} required onChange={handleInputChange}/>
+                                    value={consolaSeleccionada.codDocente} required onChange={handleInputChange} />
                             </div>
                             <div className="item2">
                                 <label>Email</label>
@@ -352,7 +431,7 @@ export default function Docentes() {
                                     type="search"
                                     name="email"
                                     autoComplete="off"
-                                    value={consolaSeleccionada.email} required onChange={handleInputChange}/>
+                                    value={consolaSeleccionada.email} required onChange={handleInputChange} />
                             </div>
                         </div>
                         <label>Contraseña</label>
@@ -361,21 +440,21 @@ export default function Docentes() {
                             type="search"
                             name="contrasenia"
                             autoComplete="off"
-                            value={consolaSeleccionada.contrasenia} required onChange={handleInputChange}/>
+                            value={consolaSeleccionada.contrasenia} required onChange={handleInputChange} />
                         <label>Nombre</label>
                         <input
                             className="field"
                             type="search"
                             name="nombre"
                             autoComplete="off"
-                            value={consolaSeleccionada.nombre} required onChange={handleInputChange}/>
+                            value={consolaSeleccionada.nombre} required onChange={handleInputChange} />
                         <label>Apellido</label>
                         <input
                             className="field"
                             type="search"
                             name="apellido"
                             autoComplete="off"
-                            value={consolaSeleccionada.apellido} required onChange={handleInputChange}/>
+                            value={consolaSeleccionada.apellido} required onChange={handleInputChange} />
                         <div className="form__grupo">
                             <div className="item1">
                                 <label>Sexo</label>
@@ -429,9 +508,9 @@ export default function Docentes() {
                             type="search"
                             name="telefono"
                             autoComplete="off"
-                            value={consolaSeleccionada.telefono} required 
-                            onChange={handleInputChange}/>
-                    
+                            value={consolaSeleccionada.telefono} required
+                            onChange={handleInputChange} />
+
                         <button
                             className="btn btn-success"
                             type="button"

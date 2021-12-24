@@ -1,11 +1,6 @@
 
 import './Navbar.css'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
-
-import Boton from './Boton'
-
-import user_image from '../assets/images/tuat.png'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -24,25 +19,25 @@ export default function Navbar() {
         }
     }
 
-    let nombre = "cargando..."
-    let esAdmin = "cargando..."
-    const user = JSON.parse(localStorage.getItem("user"))
-    if (user) {
-        // console.log(nombre)
-        nombre = user.nombre
-        esAdmin = user.esAdmin ? "Admin" : "Regular"
-        // console.log("mostrando user",nombre)
-    }
-    else {
-        console.log("no hay user")
-    }
-    
+    // let nombre = "cargando..."
+    // let esAdmin = "cargando..."
+    // const user = JSON.parse(localStorage.getItem("user"))
+    // if (user) {
+    //     // console.log(nombre)
+    //     nombre = user.nombre
+    //     esAdmin = user.esAdmin ? "Admin" : "Regular"
+    //     // console.log("mostrando user",nombre)
+    // }
+    // else {
+    //     console.log("no hay user")
+    // }
 
-        
+
+
 
     return (
         <>
-            {console.log(user)}
+            {/* {console.log(user)} */}
             {/* {console.log(user.nombre)} */}
             <div className="navbar-contenido">
                 <div className="navContent">
@@ -50,21 +45,23 @@ export default function Navbar() {
                         {/* <div className="user_image">
                         <img src={curr_user.image} alt="" />
                     </div> */}
-                        <div className="user_name">
+
+                        {/* <div className="user_name">
                             <h3>{nombre}</h3>
                         </div>
                         <div className="user_carga">
                             <h3>{esAdmin}</h3>
-                        </div>
+                        </div> */}
+
                         <div className="btn_salir">
 
                             <button className="btn btn-danger"
-                                onClick={
-                                    logout
-                                }
-                            >
+                                onClick={logout}>
                                 Salir
                             </button>
+                            {/* <input type="button" value="aaa" /> */}
+                            {/* <button>mama</button> */}
+
                         </div>
                     </div>
 
