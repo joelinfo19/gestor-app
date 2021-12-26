@@ -125,6 +125,7 @@ export default function Docentes() {
     // ****
 
     const leercsv = (evt) => {
+        console.log("on change jaja")
         let file = evt.target.files[0]
         let reader = new FileReader();
         reader.onload = (e) => {
@@ -135,26 +136,32 @@ export default function Docentes() {
             setCsvDocentes(txt)
 
         }
-        // leemos el contenido del archivo seleccionado
-        reader.readAsText(file)
+        // leeemos el contenido del archivo seleccionado
+        if (file) { reader.readAsText(file) }
+        // console.log(csvDocentes)
     }
     const csvToArray = () => {
         const delimiter = ","
         const str = csvDocentes
-        console.log(str)
-        const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
-        const rows = str.slice(str.indexOf("\n") + 1).split("\n");
-        const arr = rows.map(function (row) {
-            const values = row.split(delimiter);
-            const el = headers.reduce(function (object, header, index) {
-                object[header] = values[index];
-                return object;
-            }, {});
-            return el;
-        });
+        // console.log(str)
+        if (csvDocentes) {
+            const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+            const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+            const arr = rows.map(function (row) {
+                const values = row.split(delimiter);
+                const el = headers.reduce(function (object, header, index) {
+                    object[header] = values[index];
+                    return object;
+                }, {});
+                return el;
+            });
+
+            return arr
+        }
 
         // console.log(arr)
-        return arr
+        return null
+
     }
 
 
@@ -176,16 +183,19 @@ export default function Docentes() {
     }
 
     const enviarCsvDocentes = () => {
-        console.log("click")
+        console.log("click enviar csv ")
         const array = csvToArray()
         // console.log(array[1])
         // console.log("----insertar vista inputs")
         // console.log(consolaSeleccionada)
-        for (var i = 0; i < array.length; i++) {
-            var datos = array[i]
-            console.log(datos)
-            post(datos)
+        if (array) {
+            for (var i = 0; i < array.length; i++) {
+                var datos = array[i]
+                console.log("send data >>>", datos)
+                post(datos)
+            }
         }
+        setCsvDocentes(null)
         // var datos = array[0]
         // console.log(datos)
         // post(datos)
