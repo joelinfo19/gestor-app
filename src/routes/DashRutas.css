@@ -4,6 +4,9 @@
     flex-direction: column; 
     /* overflow:auto; */
 }
+.content {
+    width: 100%;
+}
 .flex {
     /* border: 5px solid blue; */
     display: flex;
