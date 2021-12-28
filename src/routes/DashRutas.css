@@ -7,6 +7,9 @@
     
     /* overflow:auto; */
 }
+.content {
+    width: 100%;
+}
 .flex {
     display: flex;
     position: relative;

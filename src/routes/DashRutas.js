@@ -24,7 +24,6 @@ export default function DashRutas() {
                     <Routes>
                         <Route exact path='/mis_cursos' element={<MisCursos />} />
                         <Route exact path='/mis_cursos/:courseId' element={<Curso />} />
-
                         <Route exact path='/perfil' element={<Perfil />} />
                     </Routes>
                 </div>

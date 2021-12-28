@@ -5,32 +5,30 @@ import { Card } from 'react-bootstrap'
 import CardGroup from 'react-bootstrap/CardGroup'
 const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 	return (
-		
+
 		[
-		'Dark',
+			'Light',
 		].map((variant, idx) => (
-		<CardGroup key={idx}>
-		<Card
-			border="dark"
-			className="m-2"
-			bg={variant.toLowerCase()}
-	  		key={idx}
-	  		text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-	  		style={{ width: '35rem' }}
-	  		
-		>
-			<Link className="text-decoration-none" to={idMatricula}>
-			<Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHjg3q2uyh-vP_XK9VxLONEhog5NmIzG00hQ&usqp=CAU" />
-				<Card.Header>{codigo}</Card.Header>
-				<Card.Body>
-					<Card.Title>{nombre}</Card.Title>
-					<Card.Text>
-						Horario
-					</Card.Text>
-				</Card.Body>
-			</Link>
-		</Card>
-		</CardGroup>
+			<CardGroup key={idx}>
+				<Card
+					className="m-2"
+					bg={variant.toLowerCase()}
+					key={idx}
+					text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+					style={{ width: '35rem' }}
+				>
+					<Link className="text-decoration-none" to={idMatricula}>
+						<Card.Img variant="top" src="https://picsum.photos/300/150" />
+						<Card.Header>{codigo}</Card.Header>
+						<Card.Body>
+							<Card.Title>{nombre}</Card.Title>
+							<Card.Text>
+								Horario
+							</Card.Text>
+						</Card.Body>
+					</Link>
+				</Card>
+			</CardGroup>
 		))
 
 	)
@@ -63,11 +61,11 @@ export default function MisCursos({ id_docente }) {
 	return (
 		<>
 			<h1>Mis cursos</h1>
-			<div className="d-flex flex-wrap">
+			<div className="d-flex flex-wrap ">
 				{
-					myCourses.map((matricula) => {
-						return <div
-							className="w-50"
+					myCourses.map((matricula) =>
+						<div
+							className="w-25 m-0"
 							key={matricula._id}
 						>
 							<CardCourse
@@ -77,7 +75,7 @@ export default function MisCursos({ id_docente }) {
 								horario={matricula.curso.horario}
 							/>
 						</div>
-					})
+					)
 				}
 			</div>
 		</>
