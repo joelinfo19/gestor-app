@@ -1,9 +1,11 @@
 import { Dropdown } from "react-bootstrap"
 import { useState } from "react"
 
+import {ListaAlumnos} from '../../components/ListaAlumnos';
+
 const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
 
-export function Asistencia({ contenido, idMatricula }) {
+export function Asistencia({ contenido, idMatricula, idDocente, nombreCurso }) {
 	const [unidadSelected, setUnidadSelected] = useState({
 		index: 0,
 		titulo: contenido[0].titulo
@@ -44,6 +46,7 @@ export function Asistencia({ contenido, idMatricula }) {
 			)
 		})
 	}
+
 
 	return (
 		<div>
@@ -92,7 +95,7 @@ export function Asistencia({ contenido, idMatricula }) {
 				</Dropdown>
 			</div>
 			<div>
-				<h5>Lista alumnos</h5>
+        <ListaAlumnos docente={idDocente} curso={nombreCurso} />
 			</div>
 			<button onClick={() => guardarAsistencia()}>
 				guardar

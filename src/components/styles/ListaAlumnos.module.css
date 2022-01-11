@@ -1,0 +1,43 @@
+
+.container {
+  margin: 1rem;
+  border: 1px solid red;
+  width: 45rem;
+}
+
+.container_title {
+  color: #0c6efd;
+  font-weight: bolder;
+}
+
+.container_ul {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 1rem;
+}
+
+.container_ul_li {
+  display: flex;
+  border-bottom: 1px solid green;
+  width: 95%;
+}
+
+.container_ul_li_name {
+  width: 90%;
+}
+
+.container_ul_li_check {
+  flex-basis: 10%;
+}
+
+.container_ul_li_check > input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 10px;
+}

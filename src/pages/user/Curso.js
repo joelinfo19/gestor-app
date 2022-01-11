@@ -50,7 +50,6 @@ export default function Curso() {
         const { matriculas } = data
         setMatricula(matriculas)
         setCurso(matriculas.curso)
-        console.log('lopp')
         // Recuperando los temas
         const newContenido = matriculas.contenido.map(unidad => {
           return {
@@ -64,6 +63,10 @@ export default function Curso() {
         setContenido(newContenido)
       })
   }, [file])
+
+  console.log(curso.nombre);
+
+
 
   const onChange = (e) => {
     if (e.target.files[0]) {
@@ -384,6 +387,7 @@ export default function Curso() {
             </div>
           </div>
 
+
         </div>
         <Modalv2
           size="lg"
@@ -519,7 +523,7 @@ export default function Curso() {
           closeClick={() => console.log(null)}
           saveClick={() => console.log(null)}
         >
-          <Asistencia contenido={contenido} idMatricula={matricula._id} />
+          <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : {usuario:{_id:"0"}}} nombreCurso={curso.nombre} />
         </Modalv2>
 
       </div >
