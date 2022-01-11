@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form'
 import Card from 'react-bootstrap/Card'
 import { FormControlLabel } from '@material-ui/core'
 import { Asistencia } from './Asistencia'
+import { HistorialAsistencia } from './HistorialAsistencia'
 
 const url = 'https://testunsaac.herokuapp.com/api'
 
@@ -27,6 +28,7 @@ export default function Curso() {
 
   const [showModal, setShowModal] = useState(false)
   const [showModalAsistencia, setShowModalAsistencia] = useState(false)
+  const [showModalHistorial, setShowModalHistorial] = useState(false)
   const [contenido, setContenido] = useState(
     [
       {
@@ -348,12 +350,21 @@ export default function Curso() {
         </div>
         <div className="col-5 h-100">
           <div className='mt-3'>
-            <button
-              className='btn btn-success w-100'
-              onClick={() => setShowModalAsistencia(true)}
-            >
-              Marcar asistencia
-            </button>
+            <div className='btn-group w-100 mt-1'>
+              <button
+                className='btn btn-success w-100'
+                onClick={() => setShowModalAsistencia(true)}
+              >
+                Marcar asistencia
+              </button>
+              <button
+                className='btn btn-secondary w-100'
+                onClick={() => setShowModalHistorial(true)}
+              >
+                Historial
+              </button>
+            </div>
+
           </div>
           <div className='card mt-3 p-2'>
             <form onSubmit={onSubmit}>
@@ -523,9 +534,17 @@ export default function Curso() {
           closeClick={() => console.log(null)}
           saveClick={() => console.log(null)}
         >
-          <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : {usuario:{_id:"0"}}} nombreCurso={curso.nombre} />
+          <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }} nombreCurso={curso.nombre} />
         </Modalv2>
-
+        <Modalv2
+          show={showModalHistorial}
+          setShow={setShowModalHistorial}
+          title='HISTORIAL DE ASISTENCIA'
+          closeClick={() => console.log(null)}
+          saveClick={() => console.log(null)}
+        >
+          <HistorialAsistencia matricula={matricula} />
+        </Modalv2>
       </div >
     </div >
   )
