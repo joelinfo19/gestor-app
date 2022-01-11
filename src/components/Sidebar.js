@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
-
+import { useEffect } from 'react'
 
 import logo from '../assets/images/log.png'
 
@@ -23,6 +23,7 @@ let esAdmin = "load..."
 
 export default function Sidebar({ jsonRutas }) {
 
+
     const user = JSON.parse(localStorage.getItem("user"))
     if (user) {
         // console.log(nombre)
@@ -33,6 +34,24 @@ export default function Sidebar({ jsonRutas }) {
     else {
         console.log("no hay user")
     }
+
+    const recupUser = () => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        if (user) {
+            // console.log(nombre)
+            nombre = user.nombre
+            esAdmin = user.esAdmin ? "Admin" : "Regular"
+            // console.log("mostrando user",nombre)
+        }
+        else {
+            console.log("no hay user")
+        }
+    }
+
+    useEffect(() => {
+        console.log("useefect sidebar")
+        recupUser()
+    }, [])
 
     return (
         <>

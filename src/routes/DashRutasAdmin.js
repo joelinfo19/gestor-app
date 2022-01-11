@@ -12,7 +12,7 @@ import Cursos from '../pages/admin/Cursos'
 import AsignarHorarios from '../pages/admin/AsignarHorarios'
 import Sidebar_items from '../assets/JsonData/sidebar_admin_routes.json'
 
-import Perfil from '../pages/user/Perfil'
+import Perfil from '../pages/admin/Perfil'
 
 import PrivateRouteAdmin from './PrivateRouteAdmin'
 import './DashRutas.css'
