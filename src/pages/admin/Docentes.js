@@ -10,9 +10,10 @@
 
 
 import React, { useEffect, useState } from "react"
-import './Docentes.css'
+// import './Docentes.css'
 import Modal from '../../components/Modal'
 import { LinearProgress } from "@material-ui/core"
+import Swal from 'sweetalert2'
 
 
 export default function Docentes() {
@@ -194,7 +195,14 @@ export default function Docentes() {
                 console.log("send data >>>", datos)
                 post(datos)
             }
+
+            Swal.fire(
+                'Registro Agregado',
+                'fue agregado correctamente',
+                'success'
+            )
         }
+        else {alert("no se pudo subir...")}
         setCsvDocentes(null)
         // var datos = array[0]
         // console.log(datos)
@@ -208,90 +216,203 @@ export default function Docentes() {
 
     return (
         <>
-            {/* <h1>Docentes</h1> */}
-            <input type="file" onChange={leercsv} />
-            <button className='btn btn-secondary' onClick={enviarCsvDocentes}>Subir Data</button>
-            <input
-                type="text"
-                placeholder="Buscar por nombre..."
-                onChange={(event) => {
-                    setSearchTerm(event.target.value)
-                }}
-            />
+            {/* <div className="row">
+                <div className="col-xl-3 col-md-6">
+                    <div className="card bg-primary text-white mb-4">
+                        <div className="card-body">Primary Card</div>
+                        <div className="card-footer d-flex align-items-center justify-content-between">
+                            <a className="small text-white stretched-link" href="#">View Details</a>
+                            <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-3 col-md-6">
+                    <div className="card bg-warning text-white mb-4">
+                        <div className="card-body">Warning Card</div>
+                        <div className="card-footer d-flex align-items-center justify-content-between">
+                            <a className="small text-white stretched-link" href="#">View Details</a>
+                            <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-3 col-md-6">
+                    <div className="card bg-success text-white mb-4">
+                        <div className="card-body">Success Card</div>
+                        <div className="card-footer d-flex align-items-center justify-content-between">
+                            <a className="small text-white stretched-link" href="#">View Details</a>
+                            <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-xl-3 col-md-6">
+                    <div className="card bg-danger text-white mb-4">
+                        <div className="card-body">Danger Card</div>
+                        <div className="card-footer d-flex align-items-center justify-content-between">
+                            <a className="small text-white stretched-link" href="#">View Details</a>
+                            <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+
+            <h1>Docentes</h1>
+
+            {/* <div className="row">
+                    <div className="col">col</div>
+                    <div className="col">col</div>
+                    <div className="col">col</div>
+                </div> */}
+
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col">
+                        <button className="btn btn-success" onClick={() => {
+                            setStateModalNuevo(!stateModalNuevo)
+                            setConsolaSeleccionada({})
+                        }}>
+                            Nuevo docente
+                        </button>
+                    </div>
+                    <div className="col">
+                        <div className="input-group">
+                            <input className="form-control" type="text" placeholder="Search for name..." aria-label="Search for..." aria-describedby="btnNavbarSearch" onChange={(event) => { setSearchTerm(event.target.value) }} />
+                            <button className="btn btn-primary" id="btnNavbarSearch" type="button"><i className="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    <div className="col">
+
+                    </div>
+                </div>
+                <div className="row mt-3">
+                    <div className="col-8">
+                        <div className="table-responsive">
+                            <table className="table">
+                                <thead>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Email</th>
+                                        {/* <th>Contraseña</th> */}
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Sexo</th>
+                                        <th>Categoria</th>
+                                        <th>EsAdmin</th>
+                                        <th>Telefono</th>
+                                        <th>Acciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+
+                                        // search(
+                                        !docentes ? "cargando..." :
+                                            docentes.filter((val) => {
+                                                if (searchTerm == "") {
+                                                    return val
+                                                } else if (val.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
+                                                    return val
+                                                }
+                                            }).map((docent, index) => (
+                                                <tr key={docent._id}>
+                                                    <td>{docent.codDocente}</td>
+                                                    <td>{docent.email}</td>
+                                                    {/* <td>{docent.contrasenia}</td> */}
+                                                    <td>{docent.nombre}</td>
+                                                    <td>{docent.apellido}</td>
+                                                    <td>{docent.sexo}</td>
+                                                    <td>{docent.categoria}</td>
+                                                    <td>{docent.esAdmin.toString()}</td>
+                                                    <td>{docent.telefono}</td>
+
+                                                    <td>
+                                                        <button className="btn btn-primary" onClick={
+                                                            () => {
+                                                                setStateModalEditar(!stateModalEditar)
+                                                                setConsolaSeleccionada(docent)
+
+                                                            }} >
+                                                            Editar
+                                                        </button>
+                                                    </td>
+
+                                                    <td>
+                                                        <button className="btn btn-danger" onClick={() => eliminarDocente(docent._id)} >
+                                                            Eliminar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+
+                                        // )
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div className="col mt-2">
+                        <label className="form-label" htmlFor="customFile">Importar cursos:</label>
+                        <input type="file" className="form-control" id="customFile" accept=".csv" onChange={leercsv} />
+                        <button type="button" className="btn btn-success" onClick={enviarCsvDocentes}>Importar</button>
+                    </div>
+                </div>
+
+
+
+
+
+                {/* <div className="row">
+                    <div className="col-xl-3 col-md-6">
+                        <div className="card bg-primary text-white mb-4">
+                            <div className="card-body">Primary Card</div>
+                            <div className="card-footer d-flex align-items-center justify-content-between">
+                                <a className="small text-white stretched-link" href="#">View Details</a>
+                                <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-3 col-md-6">
+                        <div className="card bg-warning text-white mb-4">
+                            <div className="card-body">Warning Card</div>
+                            <div className="card-footer d-flex align-items-center justify-content-between">
+                                <a className="small text-white stretched-link" href="#">View Details</a>
+                                <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-3 col-md-6">
+                        <div className="card bg-success text-white mb-4">
+                            <div className="card-body">Success Card</div>
+                            <div className="card-footer d-flex align-items-center justify-content-between">
+                                <a className="small text-white stretched-link" href="#">View Details</a>
+                                <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-xl-3 col-md-6">
+                        <div className="card bg-danger text-white mb-4">
+                            <div className="card-body">Danger Card</div>
+                            <div className="card-footer d-flex align-items-center justify-content-between">
+                                <a className="small text-white stretched-link" href="#">View Details</a>
+                                <div className="small text-white"><i className="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
+
+            </div>
+
+
+
+
+
+
+
             {
                 // console.log(docentes)
             }
-            <button className="btn btn-success" onClick={() => {
-                setStateModalNuevo(!stateModalNuevo)
-                setConsolaSeleccionada({})
-            }}>
-                Nuevo docente
-            </button>
-            <div className="table-responsive">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Email</th>
-                            {/* <th>Contraseña</th> */}
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Sexo</th>
-                            <th>Categoria</th>
-                            <th>EsAdmin</th>
-                            <th>Telefono</th>
-                            <th>Acciones</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
 
-                            // search(
-                            !docentes ? "cargando..." :
-                                docentes.filter((val) => {
-                                    if (searchTerm == "") {
-                                        return val
-                                    } else if (val.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
-                                        return val
-                                    }
-                                }).map((docent, index) => (
-                                    <tr key={docent._id}>
-                                        <td>{docent.codDocente}</td>
-                                        <td>{docent.email}</td>
-                                        {/* <td>{docent.contrasenia}</td> */}
-                                        <td>{docent.nombre}</td>
-                                        <td>{docent.apellido}</td>
-                                        <td>{docent.sexo}</td>
-                                        <td>{docent.categoria}</td>
-                                        <td>{docent.esAdmin.toString()}</td>
-                                        <td>{docent.telefono}</td>
-
-                                        <td>
-                                            <button className="btn btn-primary" onClick={
-                                                () => {
-                                                    setStateModalEditar(!stateModalEditar)
-                                                    setConsolaSeleccionada(docent)
-
-                                                }} >
-                                                Editar
-                                            </button>
-                                        </td>
-
-                                        <td>
-                                            <button className="btn btn-danger" onClick={() => eliminarDocente(docent._id)} >
-                                                Eliminar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-
-                            // )
-                        }
-
-                    </tbody>
-                </table>
-            </div>
 
 
 
@@ -305,7 +426,7 @@ export default function Docentes() {
                     <form >
                         <div className="form__grupo">
                             <div className="item1">
-                                <label>Id docente</label>
+                                <label>Cod docente</label>
                                 <input
                                     className="field"
                                     type="search"
@@ -426,7 +547,7 @@ export default function Docentes() {
                     <form >
                         <div className="form__grupo">
                             <div className="item1">
-                                <label>Id docente</label>
+                                <label>Cod docente</label>
                                 <input
                                     className="field"
                                     type="search"

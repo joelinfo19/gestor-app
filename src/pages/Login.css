@@ -13,7 +13,7 @@
 
 .contenedor-log-reg {
     border-radius: 10px;
-    border: 5px solid #fff;
+    /* border: 5px solid #fff; */
     font-size: 22px;  /*eso determina el tamaño de letra total para em */
     /* border: 2px solid green; */
     position: absolute;
@@ -59,10 +59,14 @@
 }
 
 #emailHelp {
-    font-size: 0.7em; /*14px*/
+    font-size: 0.7em;
 }
 
 .contenedor-log-reg > .tab-content input {
+    font-size: 0.95em;
+}
+
+.contenedor-log-reg > .tab-content select {
     font-size: 0.95em;
 }
 

@@ -9,6 +9,7 @@ import Imagen2 from '../assets/images/Logo_unsaac.png'
 
 export default function Login() {
 
+    const [dominio, setdominio] = useState('@gmail.com')
     const [email, setEmail] = useState('')
     const [contrasenia, setContrasenia] = useState('')
     const [view, setView] = useState(false);
@@ -31,7 +32,7 @@ export default function Login() {
         // console.log(response.statusText)
         const responseJSON = await response.json()
         setDocentes(responseJSON.docentes)
-        console.log(responseJSON.docentes)
+        // console.log(responseJSON.docentes)
     }
     useEffect(() => {
         fetchApi()
@@ -42,13 +43,21 @@ export default function Login() {
     let api = axios()
     let url = 'https://testunsaac.herokuapp.com/api/login'
 
+
+    const devolverDominio = (event) => {
+        console.log("cambiodominio")
+        console.log(event.target.value)
+        return setdominio(event.target.value)
+        
+    }
     let data = {
-        email: email + "@gmail.com",
+        email: email + dominio,
         contrasenia: contrasenia
 
     }
 
     const clickLogin = (e) => {
+        console.log("enviando: ", data)
         e.preventDefault()
         setError(false)
         // POST request using fetch inside useEffect React hook
@@ -100,44 +109,62 @@ export default function Login() {
                     <div onClick={changeView} className={view ? '' : 'active'}>Inicio</div>
                     <div onClick={changeView} className={view ? 'active' : ''}>Registro</div>
                 </div>
+
                 <div className="tab-imagenes">
                     <img src={Imagen1} alt="..." />
                     <img src={Imagen2} alt="..." />
                 </div>
+
+                {/* <img class="img-responsive" src={Imagen1} alt="Chania" width="120" height="120" /> */}
+
+
                 <div className="tab-content">
                     <div className={view ? 'tab-body' : 'active'}>
-                        {/* <h1>1</h1> */}
-                        <form>
+
+                        <form action="">
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">Email</label>
-                                <input name="email" onChange={(e) => setEmail(e.target.value)} type="email" className="form-control mt-1" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email @gmail.com" autoFocus />
+                                <label htmlFor="formGroupExampleInput">Email</label>
+                                <div className="form-group row">
+                                    <div className="col-sm-5">
+                                        <input name="email" onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="inputPassword" placeholder="Enter email" autoFocus />
+                                    </div>
+                                    {/* <label for="inputPassword" class="col-sm-1 col-form-label">Password</label> */}
+                                    <div className="form-group col-md-7">
+                                        <select id="inputState" className="form-select" onChange={(e) => {devolverDominio(e)}} >
+                                            <option value="@gmail.com.pe">@gmail.com</option>
+                                            <option value="@unsaac.edu.pe">@unsaac.edu</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
 
-
-                                {/* <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else</small> */}
+                                </div>
                             </div>
                             <div className="form-group mt-2">
-                                <label htmlFor="exampleInputPassword1">Password</label>
-                                <input name="contrasenia" onChange={(e) => setContrasenia(e.target.value)} type="email" className="form-control mt-1" id="exampleInputEmail1" placeholder="Password" />
+                                <label htmlFor="formGroupExampleInput2">Password</label>
+                                <div className="form-group row">
+                                    <div className="col-sm-12">
+                                        <input name="contrasenia" onChange={(e) => setContrasenia(e.target.value)} type="email" className="form-control" id="inputPassword" placeholder="Password" />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group form-check mt-3 mb-3">
-                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+
+                            <div className="form-group form-check mt-3 mb-1">
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1" defaultChecked />
                                 <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
                             </div>
+
                             {error && <p className="text-danger">Ocurrio un error !!!</p>}
-                            {/* <button className="btn btn-primary mt-3">Submit</button> <br /><br /> */}
-                            
-                            <button className="pushable"
+
+                            <button className="pushable mt-4"
                                 onClick={clickLogin}
                             >
                                 <span className="front">
-                                    Submit
+                                    Sign In
                                 </span>
 
                             </button>
                         </form>
                     </div>
-
-
                     <div className={view ? 'active' : 'tab-body'}>
                         <div className="content">
                             <h1>2</h1>
