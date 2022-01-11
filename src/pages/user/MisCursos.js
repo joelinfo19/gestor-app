@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import CardGroup from 'react-bootstrap/CardGroup'
+import ListGroup from 'react-bootstrap/ListGroup'
+import Ratio from 'react-bootstrap/Ratio'
 const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 	return (
 
 		[
-			'Light',
+			'Dark',
 		].map((variant, idx) => (
 			<CardGroup key={idx}>
 				<Card
@@ -60,8 +62,29 @@ export default function MisCursos({ id_docente }) {
 
 	return (
 		<>
-			<h1>Mis cursos</h1>
-			<div className="d-flex flex-wrap ">
+		       
+                
+			   
+		    {/* <Card className="bg-success text-white" >
+			 
+				
+
+    		  <Card.Title><h1 >Mis cursos</h1></Card.Title>
+    
+    
+  			  
+			  </Card>*/}
+			  <div className=''>
+      			<div className='row'>
+			<div class="lead">
+			  <ListGroup>
+            <ListGroup.Item variant="success" className="bg-success text-white">
+              <h2 className="card-title">MIS CURSOS</h2> 
+              
+              </ListGroup.Item>
+              </ListGroup>
+			  </div>
+			 <div className="d-flex flex-wrap ">
 				{
 					myCourses.map((matricula) =>
 						<div
@@ -77,6 +100,8 @@ export default function MisCursos({ id_docente }) {
 						</div>
 					)
 				}
+			</div>
+			</div>
 			</div>
 		</>
 	)

@@ -323,38 +323,52 @@ export default function Curso() {
   return (
     <div className='container'>
       <div className='row'>
-        <div className='col-7'>
+
+        
+        
+              
+            <ListGroup>
+            <ListGroup.Item variant="success" className="bg-success text-white">
+              <h3 className="card-title">{curso.nombre} </h3> 
+              <h6 className="card-subtitle mb-2 text-dark">{curso.codigo}</h6>
+              </ListGroup.Item>
+              </ListGroup>
+
+              <div className='col-7'>
           <div className="card mt-3 border-0" >
             <div className="card-body">
-              <h5 className="card-title">{curso.nombre}</h5>
-              <h6 className="card-subtitle mb-2 text-muted">{curso.codigo}</h6>
+
               <ul className="list-group list-group-flush">
-                <li className="list-group-item border-0">
+              <ListGroup>
+              <ListGroup.Item variant="primary">
+                
                   <strong>Grupo: </strong><span>{curso.grupo}</span>
-                </li>
-                <li className="list-group-item border-0">
+                
+                </ListGroup.Item>
+
+                <ListGroup.Item variant="primary">
                   <strong>Categoria: </strong><span>{curso.categoria}</span>
-                </li>
-                <li className="list-group-item border-0">
+                </ListGroup.Item>
+                <ListGroup.Item variant="primary">
                   <strong>Horario: </strong><span> .... </span>
-                </li>
-                <li className="list-group-item border-0">
+                </ListGroup.Item>
+                <ListGroup.Item variant="primary">
                   <strong>Creditos: </strong><span>{curso.creditos}</span>
-                </li>
-                <li className="list-group-item border-0">
+                </ListGroup.Item>
+                <ListGroup.Item variant="primary">
                   <strong>Tipo: </strong><span>{curso.tipo}</span>
-                </li>
+                </ListGroup.Item>
+                </ListGroup>
               </ul>
             </div>
           </div>
         </div>
+        
         <div className="col-5 h-100">
+
           <div className='mt-3'>
             <div className='btn-group w-100 mt-1'>
-              <button
-                className='btn btn-success w-100'
-                onClick={() => setShowModalAsistencia(true)}
-              >
+              <button className='btn btn-success w-100 text-warning'  onClick={() => setShowModalAsistencia(true)}>
                 Marcar asistencia
               </button>
               <button
@@ -365,11 +379,15 @@ export default function Curso() {
               </button>
             </div>
 
+
+
           </div>
+
+          
           <div className='card mt-3 p-2'>
             <form onSubmit={onSubmit}>
               <div>
-                <label className="form-label">Silabus:</label>
+                <label className="form-label"><h4>Silabus:</h4></label>
               </div>
               <div className=''>
                 <div>
@@ -397,6 +415,7 @@ export default function Curso() {
               </button>
             </div>
           </div>
+          
 
 
         </div>
