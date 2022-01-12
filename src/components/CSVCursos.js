@@ -36,7 +36,7 @@ export default function CSVCursos(){
     padding: "1em",
     border: "1px solid #1a8754",
     borderRadius: "4px",
-    width: "50%",
+    
   }
 
   const styles_container_submit = {
@@ -50,7 +50,6 @@ export default function CSVCursos(){
   return(
     <div style={styles_container}>
       <form onSubmit={handleSubmit}>
-        <label>Importar cursos: </label>
         <input type="file" onMouseOut={importarCsvCursos}/>
         <input type="submit" style={styles_container_submit}value="importar"/>
       </form>

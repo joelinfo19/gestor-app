@@ -15,7 +15,7 @@
         "icon": "fad fa-users"
     },
     {
-        "display_name": "Asignar Horarios",
+        "display_name": "Carga académica",
         "route": "/admin/asignar_horarios",
         "icon": "fad fa-clock"
     },

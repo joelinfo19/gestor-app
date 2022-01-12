@@ -41,7 +41,7 @@ export function Asistencia({ contenido, idMatricula, idDocente, nombreCurso }) {
 			method: 'PUT',
 			body: JSON.stringify(
 				{
-					asistencias: { fecha: Date.now(), asistio: true }
+					asistencias: [{ date: Date.now(), flag: true }]
 				}
 			)
 		})
@@ -98,7 +98,7 @@ export function Asistencia({ contenido, idMatricula, idDocente, nombreCurso }) {
         <ListaAlumnos docente={idDocente} curso={nombreCurso} />
 			</div>
 			<button onClick={() => guardarAsistencia()}>
-				guardar
+				Guardar
 			</button>
 		</div>
 	)

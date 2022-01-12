@@ -310,7 +310,7 @@ export default function AsignarHorarios() {
     return (
         // <div className="flex ">
         <div className="container ">
-                <h1>Asignar Horario</h1>
+                <h1>Carga académica</h1>
                 <button className="btn btn-success m-2" onClick={handleAdd}>
                     AGREGAR
                 </button>
