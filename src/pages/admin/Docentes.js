@@ -13,41 +13,42 @@ import React, { useEffect, useState } from "react"
 // import './Docentes.css'
 //import Modal from '../../components/Modal'
 import Swal from 'sweetalert2'
-import { Button, Modal} from "react-bootstrap"
+import { Button, Modal } from "react-bootstrap"
+import Spinner from "../../components/Spinner"
 
 const Modalv2 = ({ show, setShow, title, children, guardar = null, buttons = true }) => {
-  const handleClose = () => {
-    setShow(false)
-  }
-  const handleSave = () => {
-    guardar()
-    setShow(false)
-  }
-  return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {children}
-        </Modal.Body>
-        {
-          buttons ?
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleSave}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-            :
-            null
-        }
-      </Modal>
-    </>
-  )
+	const handleClose = () => {
+		setShow(false)
+	}
+	const handleSave = () => {
+		guardar()
+		setShow(false)
+	}
+	return (
+		<>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>{title}</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					{children}
+				</Modal.Body>
+				{
+					buttons ?
+						<Modal.Footer>
+							<Button variant="secondary" onClick={handleClose}>
+								Close
+							</Button>
+							<Button variant="primary" onClick={handleSave}>
+								Save Changes
+							</Button>
+						</Modal.Footer>
+						:
+						null
+				}
+			</Modal>
+		</>
+	)
 }
 
 
@@ -319,68 +320,69 @@ export default function Docentes() {
 
 				<div className="">
 					<div className="table-responsive">
-						<table className="table">
-							<thead>
-								<tr>
-									<th>Codigo</th>
-									<th>Email</th>
-									<th>Nombre</th>
-									<th>Apellido</th>
-									<th>Categoria</th>
-									<th>Rol</th>
-									<th>Telefono</th>
+						{
+							!docentes
+								?
+								<Spinner marginTop={5} />
+								:
+								<table className="table">
+									<thead>
+										<tr>
+											<th>Codigo</th>
+											<th>Email</th>
+											<th>Nombre</th>
+											<th>Apellido</th>
+											<th>Categoria</th>
+											<th>Telefono</th>
+										</tr>
+									</thead>
+									<tbody>
+										{
+											// search(
+											docentes &&
+											docentes.filter((val) => {
+												if (searchTerm == "") {
+													return val
+												} else if (val.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
+													return val
+												}
+											}).map((docent, index) => (
+												<tr className={docent.esAdmin ? 'bg-success bg-opacity-25' : null} key={docent._id}>
+													<td>{docent.codDocente}</td>
+													<td>{docent.email}</td>
+													<td>{docent.nombre}</td>
+													<td>{docent.apellido}</td>
+													<td>{docent.categoria}</td>
+													<td>{docent.telefono}</td>
 
-								</tr>
-							</thead>
-							<tbody>
-								{
-									// search(
-									!docentes ? "cargando..." :
-										docentes.filter((val) => {
-											if (searchTerm == "") {
-												return val
-											} else if (val.nombre.toLowerCase().includes(searchTerm.toLowerCase())) {
-												return val
-											}
-										}).map((docent, index) => (
-											<tr className={docent.esAdmin ? 'bg-success bg-opacity-25' : null} key={docent._id}>
-												<td>{docent.codDocente}</td>
-												<td>{docent.email}</td>
-												<td>{docent.nombre}</td>
-												<td>{docent.apellido}</td>
-												<td>{docent.categoria}</td>
-												<td>{docent.telefono}</td>
+													<td>
+														<button className="btn btn-primary" onClick={
+															() => {
+																setStateModalEditar(!stateModalEditar)
+																setConsolaSeleccionada(docent)
 
-												<td>
-													<button className="btn btn-primary" onClick={
-														() => {
-															setStateModalEditar(!stateModalEditar)
-															setConsolaSeleccionada(docent)
+															}} >
+															<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+																<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+																<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+															</svg>
+														</button>
+													</td>
 
-														}} >
-														<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-															<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-															<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-														</svg>
-													</button>
-												</td>
-
-												<td>
-													<button className="btn btn-danger" onClick={() => eliminarDocente(docent._id)} >
-														<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-															<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-															<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-														</svg>
-													</button>
-												</td>
-											</tr>
-										))
-
-									// )
-								}
-
-							</tbody>
-						</table>
+													<td>
+														<button className="btn btn-danger" onClick={() => eliminarDocente(docent._id)} >
+															<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+																<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+																<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+															</svg>
+														</button>
+													</td>
+												</tr>
+											))
+										}
+									</tbody>
+								</table>
+						}
 					</div>
 				</div>
 
@@ -690,7 +692,7 @@ export default function Docentes() {
 				buttons={false}
 			>
 				<input type="file" className="form-control" id="customFile" accept=".csv" onChange={leercsv} />
-				<button type="button" className="btn btn-success" onClick={()=>enviarCsvDocentes()}>Importar</button>
+				<button type="button" className="btn btn-success" onClick={() => enviarCsvDocentes()}>Importar</button>
 			</Modalv2>
 		</>
 	)

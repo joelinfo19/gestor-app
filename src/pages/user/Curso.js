@@ -415,9 +415,6 @@ export default function Curso() {
               </button>
             </div>
           </div>
-          
-
-
         </div>
         <Modalv2
           size="lg"
