@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card'
 import { FormControlLabel } from '@material-ui/core'
 import { Asistencia } from './Asistencia'
 import { HistorialAsistencia } from './HistorialAsistencia'
+import MiniHorario from '../../components/MiniHorario'
 
 const url = 'https://testunsaac.herokuapp.com/api'
 
@@ -319,75 +320,87 @@ export default function Curso() {
   const cerrarModal = () => {
     setIndice(0)
   }
-
   return (
     <div className='container'>
       <div className='row'>
+        <div className='col-7'>
+          <h1 >{curso.nombre}</h1>
+        </div>
+        <div className='col-5'>
+          <div className='btn-group w-100 mt-1'>
+            <button
+              className='btn btn-success w-100'
+              onClick={() => {
+                if (contenido.length > 0){
+                  setShowModalAsistencia(true)
+                }
+              }}
+            >
+              Marcar asistencia
+            </button>
+            <button
+              className='btn btn-secondary w-100'
+              onClick={() => setShowModalHistorial(true)}
+            >
+              Historial
+            </button>
+          </div>
+        </div>
 
-        
-        
-              
-            <ListGroup>
-            <ListGroup.Item variant="success" className="bg-success text-white">
-              <h3 className="card-title">{curso.nombre} </h3> 
-              <h6 className="card-subtitle mb-2 text-dark">{curso.codigo}</h6>
-              </ListGroup.Item>
-              </ListGroup>
-
-              <div className='col-7'>
-          <div className="card mt-3 border-0" >
+      </div>
+      <div className='row'>
+        <div className='col-7'>
+          <div className="card mt-3" >
             <div className="card-body">
-
-              <ul className="list-group list-group-flush">
-              <ListGroup>
-              <ListGroup.Item variant="primary">
-                
-                  <strong>Grupo: </strong><span>{curso.grupo}</span>
-                
-                </ListGroup.Item>
-
-                <ListGroup.Item variant="primary">
-                  <strong>Categoria: </strong><span>{curso.categoria}</span>
-                </ListGroup.Item>
-                <ListGroup.Item variant="primary">
-                  <strong>Horario: </strong><span> .... </span>
-                </ListGroup.Item>
-                <ListGroup.Item variant="primary">
-                  <strong>Creditos: </strong><span>{curso.creditos}</span>
-                </ListGroup.Item>
-                <ListGroup.Item variant="primary">
-                  <strong>Tipo: </strong><span>{curso.tipo}</span>
-                </ListGroup.Item>
-                </ListGroup>
-              </ul>
+              <h3 className="card-title mb-2 text-muted">{curso.codigo}</h3>
+              <div className="row mb-3">
+                <div className="col-sm-3">
+                  <h6 className="mb-0">Grupo</h6>
+                </div>
+                <div className="col-sm-9 text-secondary">
+                  <span>{curso.grupo}</span>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-sm-3">
+                  <h6 className="mb-0">Categoria</h6>
+                </div>
+                <div className="col-sm-9 text-secondary">
+                  <span>{curso.categoria}</span>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-sm-3">
+                  <h6 className="mb-0">Horario</h6>
+                </div>
+                <div className="col-sm-9 text-secondary">
+                  <MiniHorario horario={curso.horario} />
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-sm-3">
+                  <h6 className="mb-0">Creditos</h6>
+                </div>
+                <div className="col-sm-9 text-secondary">
+                  <span>{curso.creditos}</span>
+                </div>
+              </div>
+              <div className="row mb-3">
+                <div className="col-sm-3">
+                  <h6 className="mb-0">Tipo</h6>
+                </div>
+                <div className="col-sm-9 text-secondary">
+                  <span>{curso.tipo}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        
         <div className="col-5 h-100">
-
-          <div className='mt-3'>
-            <div className='btn-group w-100 mt-1'>
-              <button className='btn btn-success w-100 text-warning'  onClick={() => setShowModalAsistencia(true)}>
-                Marcar asistencia
-              </button>
-              <button
-                className='btn btn-secondary w-100'
-                onClick={() => setShowModalHistorial(true)}
-              >
-                Historial
-              </button>
-            </div>
-
-
-
-          </div>
-
-          
           <div className='card mt-3 p-2'>
             <form onSubmit={onSubmit}>
               <div>
-                <label className="form-label"><h4>Silabus:</h4></label>
+                <label className="form-label">Silabus:</label>
               </div>
               <div className=''>
                 <div>
@@ -415,6 +428,8 @@ export default function Curso() {
               </button>
             </div>
           </div>
+
+
         </div>
         <Modalv2
           size="lg"
@@ -427,7 +442,7 @@ export default function Curso() {
           <Tab.Container id="left-tabs-example" defaultActiveKey='0'>
             <Row>
               <Col sm={4}>
-                <Nav variant="pills" className="flex-column">
+                <Nav variant="pills" className="sticky-top flex-column">
                   {
                     contenido.map((unidad, index) =>
                       <div key={index} className="position-relative">
@@ -435,96 +450,90 @@ export default function Curso() {
                           <Nav.Link eventKey={index}>
                             Unidad {index + 1}
                             <button onClick={() => eliminarUnidad(index)}
-                              className={`${(index == indice ? '' : 'd-none')} bg-transparent position-absolute top-50 end-0 translate-middle-y`}
+                              className={`${(index == indice ? '' : 'd-none')} btn-close btn-close-white bg-transparent position-absolute top-50 end-0 translate-middle-y`}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                              </svg>
                             </button>
                           </Nav.Link>
                         </Nav.Item>
                       </div>
                     )
                   }
-                  <Button className='btn-success' onClick={() => agregarUnidad()}>+Unidad</Button>
+                  <button className='btn btn-success mt-3' onClick={() => agregarUnidad()}>Nueva unidad</button>
 
                 </Nav>
               </Col>
               <Col sm={8}>
-                <Tab.Content>
+                <Tab.Content className='bg-white border rounded'>
                   {
                     contenido.map((unidad, iUnidad) =>
                       <Tab.Pane key={iUnidad} eventKey={iUnidad}>
-                        <Row>
-                          <div className='d-flex'>
-                            <Form.Label column lg={3}>Unidad {`${iUnidad + 1}:`}</Form.Label>
-                            <Col>
-                              <input type="text" placeholder="Título de la Unidad"
-                                name={"unidad" + iUnidad}
-                                value={unidad.titulo || ''}
-                                onChange={(event) => handleOnChange(event, iUnidad)} />
-
-                            </Col>
-                            <Button className='btn-success' onClick={() => agregarCapitulo(iUnidad)}>+Capitulos</Button>
+                        <div className='bg-white sticky-top m-0'>
+                          <label className="form-label">Unidad {`${iUnidad + 1}:`} </label>
+                          <div class="input-group mb-3">
+                            <input type="text" className="form-control" placeholder="Título de la Unidad"
+                              name={"unidad" + iUnidad}
+                              value={unidad.titulo || ''}
+                              onChange={(event) => handleOnChange(event, iUnidad)}
+                            />
+                            <button
+                              className='btn btn-success'
+                              type='button'
+                              onClick={() => agregarCapitulo(iUnidad)}
+                            >
+                              Nuevo capitulo
+                            </button>
                           </div>
-                        </Row>
+                          <hr></hr>
+                        </div>
                         {
                           unidad.capitulos.map((capitulo, iCap) =>
-                            <div key={iCap}>
-                              <Row>
-                                <div>
-                                  <Form.Label column lg={3}><span>{`Capítulo ${iCap + 1}: `}</span></Form.Label>
-
-                                  <form className="row g-3">
-                                    <Col>
-                                      <div className="col-auto">
-                                        <input type="text" placeholder="Título del Capítulo"
-                                          name={"cap" + iCap}
-                                          value={capitulo.titulo || ''}
-                                          onChange={(event) => handleOnChange(event, iUnidad, iCap)} />
-
-                                      </div>
-                                    </Col>
-                                    <div className="col-auto">
-                                      <Button className='btn-danger btn-sm' onClick={() => eliminarCapitulo(iUnidad, iCap)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff " className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                        </svg>
-                                      </Button>
-                                    </div>
-                                  </form>
+                            <div className='position-relative border rounded mb-3 p-3' key={iCap}>
+                              <div className=''>
+                                <label column lg={3}>{`Capítulo ${iCap + 1}: `}</label>
+                                <div className='position-absolute top-0 end-0'>
+                                  <button className='btn-close btn-close' type='button' onClick={() => eliminarCapitulo(iUnidad, iCap)}>
+                                  </button>
                                 </div>
-                              </Row>
+                              </div>
+                              <div>
+                                <form className="row g-3">
+                                  <div className="input-group">
+                                    <input type="text" className='form-control' placeholder="Título del Capítulo"
+                                      name={"cap" + iCap}
+                                      value={capitulo.titulo || ''}
+                                      onChange={(event) => handleOnChange(event, iUnidad, iCap)}
+                                    />
+                                    <button
+                                      type='button'
+                                      className='btn btn-success'
+                                      onClick={() => agregarTema(iUnidad, iCap)}
+                                    >
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
                               <br />
                               <div>
-                                <div>
-                                  <span></span>
-                                  <Button onClick={() => agregarTema(iUnidad, iCap)}> +Temas</Button>
-                                </div>
                                 <ul>
                                   {
                                     capitulo.temas.map((tema, i) =>
                                       <li key={i}>
-                                        <Row>
-                                          <form className="row g-1">
-                                            <div className="col-auto">
-                                              <input type="text" placeholder="Nuevo Tema"
-                                                name={"tema" + i}
-                                                onChange={(event) => handleOnChange(event, iUnidad, iCap)}
-                                                value={tema || ''}
-                                              />
-                                            </div>
-                                            <Col>
-                                              <div >
-                                                <Button className='btn-secondary btn-sm' onClick={() => eliminarTema(iUnidad, iCap, i)}>
-                                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#082B03" className="bi bi-x-circle-fill" viewBox="0 0 16 16">
-                                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-                                                  </svg>
-                                                </Button>
-                                              </div>
-                                            </Col>
-                                          </form>
-                                        </Row>
+                                        <div className="input-group mb-2">
+                                          <input type="text" className='form-control' placeholder="Nuevo Tema"
+                                            name={"tema" + i}
+                                            onChange={(event) => handleOnChange(event, iUnidad, iCap)}
+                                            value={tema || ''}
+                                          />
+                                          <button type='button' className='btn-danger btn-sm' onClick={() => eliminarTema(iUnidad, iCap, i)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                              <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z" />
+                                              <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z" />
+                                            </svg>
+                                          </button>
+                                        </div>
                                       </li>
                                     )
                                   }
