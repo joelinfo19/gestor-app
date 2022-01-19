@@ -106,8 +106,8 @@ export default function Login() {
             <div className="contenedor-log-reg">
                 {/* cabecera dinamica */}
                 <div className="tab-header">
-                    <div onClick={changeView} className={view ? '' : 'active'}>Inicio</div>
-                    <div onClick={changeView} className={view ? 'active' : ''}>Registro</div>
+                    <div onClick={changeView} className={view ? '' : 'active'}>Login</div>
+                    {/* <div onClick={changeView} className={view ? 'active' : ''}>Registro</div> */}
                 </div>
 
                 <div className="tab-imagenes">
@@ -119,7 +119,7 @@ export default function Login() {
 
 
                 <div className="tab-content">
-                    <div className={view ? 'tab-body' : 'active'}>
+                    <div className='active'>
 
                         <form action="">
                             <div className="form-group">
@@ -131,8 +131,8 @@ export default function Login() {
                                     {/* <label for="inputPassword" class="col-sm-1 col-form-label">Password</label> */}
                                     <div className="form-group col-md-7">
                                         <select id="inputState" className="form-select" onChange={(e) => {devolverDominio(e)}} >
-                                            <option value="@gmail.com.pe">@gmail.com</option>
-                                            <option value="@unsaac.edu.pe">@unsaac.edu</option>
+                                            <option value="@gmail.com">@gmail.com</option>
+                                            <option value="@unsaac.edu">@unsaac.edu</option>
                                             <option>...</option>
                                         </select>
                                     </div>
@@ -143,7 +143,7 @@ export default function Login() {
                                 <label htmlFor="formGroupExampleInput2">Password</label>
                                 <div className="form-group row">
                                     <div className="col-sm-12">
-                                        <input name="contrasenia" onChange={(e) => setContrasenia(e.target.value)} type="email" className="form-control" id="inputPassword" placeholder="Password" />
+                                        <input name="contrasenia" onChange={(e) => setContrasenia(e.target.value)} type="password" className="form-control" id="inputPassword" placeholder="Password" />
                                     </div>
                                 </div>
                             </div>
@@ -165,11 +165,11 @@ export default function Login() {
                             </button>
                         </form>
                     </div>
-                    <div className={view ? 'active' : 'tab-body'}>
+                    {/* <div className={view ? 'active' : 'tab-body'}>
                         <div className="content">
                             <h1>2</h1>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
             </div>
