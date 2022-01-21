@@ -38,7 +38,6 @@ export const ListaAlumnos = ({docente, curso, handleAsistencia}) => {
       }
     }
     setAsistencias(nuevaAsistencia);
-    console.log({asistencias: [...asistencias]})
   }
 
 
