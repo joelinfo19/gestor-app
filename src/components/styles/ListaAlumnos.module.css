@@ -1,7 +1,7 @@
 
 .container {
   margin: 1rem;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
   width: 45rem;
 }
 
@@ -21,6 +21,7 @@
   display: flex;
   border-bottom: 1px solid green;
   width: 95%;
+  margin: .2rem 0;
 }
 
 .container_ul_li_name {
@@ -41,3 +42,34 @@
   transform: scale(1.5);
   padding: 10px;
 }
+
+.container_btn_submit{
+  display: flex;
+  padding: 1rem 2rem;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+
+.btn_submit {
+  background-color: #0c6efd;
+  color: #fff;
+  font-weight: bolder;
+  font-size: .9rem;
+  padding: .5rem;
+  border-radius: 3px;;
+}
+
+.btn_submit:hover {
+  background-color: #0c6edd
+}
+
+.btn_submit:active {
+  background-color: #0c3eac;
+}
+
+.btn_submit:disabled {
+  background-color: #444;
+  color: #333;
+}
+
+

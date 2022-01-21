@@ -3,9 +3,10 @@ import {helpHttp} from '../helpers/helpHttp';
 import sty from './styles/ListaAlumnos.module.css';
 
 
-export const ListaAlumnos = ({docente, curso}) => {
+export const ListaAlumnos = ({docente, curso, handleAsistencia}) => {
 
   const [alumnos, setAlumnos] = useState([]);
+  const [asistencias, setAsistencias] = useState({});
 
   let api = helpHttp();
   let url = `https://testunsaac.herokuapp.com/api/matriculas/mis-cursos/${docente}`;
@@ -20,8 +21,23 @@ export const ListaAlumnos = ({docente, curso}) => {
       })
   }, []);
 
+  useEffect(() => {
+    let lista_asistencia = [];
+    for(let el of alumnos){
+      lista_asistencia.push({name: el, asistencias: [{date: new Date(), flag: false}]})
+    }
+    setAsistencias(lista_asistencia)
+  }, [alumnos]);
+
   const handleChecked = (e) => {
-    console.log(e.target.checked ? "si" : "no")
+    let nuevaAsistencia = asistencias;
+    for(let el of nuevaAsistencia){
+      if(el.name == e.target.name){
+        el.asistencias[0].flag = e.target.checked ? true : false;
+        break;
+      }
+    }
+    setAsistencias(nuevaAsistencia);
   }
 
 
@@ -34,15 +50,21 @@ export const ListaAlumnos = ({docente, curso}) => {
         {alumnos.map(el => typeof el == "string" ? 
           (
             <li className={sty.container_ul_li} key={el}>
-              <div className={sty.container_ul_li_name}>{el}</div>
+              <label htmlFor={el} className={sty.container_ul_li_name}>{el}</label>
               <div className={sty.container_ul_li_check}>
-                <input type='checkbox' onChange={e => handleChecked(e)}/>
+                <input type='checkbox' id={el} name={el} value='jojo' onChange={e => handleChecked(e)}/>
               </div>
             </li>
           ) 
         : 
           <p>Cargando ...</p>)}
       </ul>
+      
+      <div className={sty.container_btn_submit}>
+        <button onClick={(e) => handleAsistencia(e, asistencias, docente)} className={sty.btn_submit}>
+          Registrar Asistencia
+        </button>
+      </div>
     </div>
   )
 }

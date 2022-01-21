@@ -50,7 +50,21 @@ export function Asistencia({ contenido, idMatricula, idDocente, nombreCurso }) {
 				}
 			)
 		})
+
 	}
+
+  const handleAsistencia = async (e, asistenciasAlumnos) => {
+    guardarAsistencia();
+    await fetch(`${url}asistencia-alumnos/${idMatricula}`, {
+      method: 'POST',
+      body: JSON.stringify({asistencias: asistenciasAlumnos}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    alert("Se registraron las asistencias");
+    e.target.disabled = true;
+  }
 
 
 	return (
@@ -106,7 +120,7 @@ export function Asistencia({ contenido, idMatricula, idDocente, nombreCurso }) {
 			</div>
 
 			<div>
-				<ListaAlumnos docente={idDocente} curso={nombreCurso} />
+        <ListaAlumnos docente={idDocente} curso={nombreCurso} handleAsistencia={handleAsistencia} />
 			</div>
 			<button onClick={() => guardarAsistencia()}>
 				Guardar
