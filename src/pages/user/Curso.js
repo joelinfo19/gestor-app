@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card'
 import { FormControlLabel } from '@material-ui/core'
 import { Asistencia } from './Asistencia'
 import { HistorialAsistencia } from './HistorialAsistencia'
+import {EstadisticasAlumnos} from '../../components/EstadisticasAlumnos';
 import MiniHorario from '../../components/MiniHorario'
 
 const url = 'https://testunsaac.herokuapp.com/api'
@@ -562,12 +563,14 @@ export default function Curso() {
           <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }} nombreCurso={curso.nombre} />
         </Modalv2>
         <Modalv2
+          size="lg"
           show={showModalHistorial}
           setShow={setShowModalHistorial}
           title='HISTORIAL DE ASISTENCIA'
           closeClick={() => console.log(null)}
           saveClick={() => console.log(null)}
         >
+          <EstadisticasAlumnos idMatricula={matricula._id}/>
           <HistorialAsistencia matricula={matricula} />
         </Modalv2>
       </div >
