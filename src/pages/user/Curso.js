@@ -65,11 +65,7 @@ export default function Curso() {
         })
         setContenido(newContenido)
       })
-  }, [file])
-
-  console.log(curso.nombre);
-
-
+  }, [file, showModalAsistencia])
 
   const onChange = (e) => {
     if (e.target.files[0]) {
@@ -331,7 +327,7 @@ export default function Curso() {
             <button
               className='btn btn-success w-100'
               onClick={() => {
-                if (contenido.length > 0){
+                if (contenido.length > 0) {
                   setShowModalAsistencia(true)
                 }
               }}
@@ -558,8 +554,14 @@ export default function Curso() {
           title='ASISTENCIA'
           closeClick={() => console.log(null)}
           saveClick={() => console.log(null)}
+          footer={false}
         >
-          <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }} nombreCurso={curso.nombre} />
+          <Asistencia
+            contenido={contenido}
+            matricula={matricula}
+            idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }}
+            nombreCurso={curso.nombre}
+          />
         </Modalv2>
         <Modalv2
           show={showModalHistorial}

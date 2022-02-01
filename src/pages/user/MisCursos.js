@@ -1,9 +1,9 @@
 
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Card } from 'react-bootstrap'
+import { Card, ProgressBar } from 'react-bootstrap'
 import CardGroup from 'react-bootstrap/CardGroup'
-const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
+const CardCourse = ({ idMatricula, codigo, nombre, porcentajeAvance }) => {
 	return (
 
 		[
@@ -23,7 +23,7 @@ const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 						<Card.Body>
 							<Card.Title>{nombre}</Card.Title>
 							<Card.Text>
-								Horario
+								<ProgressBar now={porcentajeAvance} label={`${porcentajeAvance}%`} />
 							</Card.Text>
 						</Card.Body>
 					</Link>
@@ -34,22 +34,63 @@ const CardCourse = ({ idMatricula, codigo, nombre, horario }) => {
 	)
 }
 
-export default function MisCursos({ id_docente }) {
+export default function MisCursos() {
 	const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
 	const [myCourses, setMyCourses] = useState([])
-
+	const [porcentajeAvance, setPorcentajeAvance] = useState([]);
 	const user = JSON.parse(localStorage.getItem("user"))
-	const getMyCourses = async () => {
 
-		const id = user._id
-		const response = await fetch(url + 'mis-cursos/' + id)
-		const responseJSON = await response.json()
-		setMyCourses(responseJSON)
+	const calcularAvance = () => {
+
+		myCourses.map(mat => {
+			const contenido = mat.contenido
+			const avance = mat.avanzado
+			const ultimoTema = avance[avance.length - 1]
+			let avanzado = 0
+			let totalTemas = 0
+			const newContenido = contenido.map(unidad => {
+				return {
+					...unidad, capitulos: unidad.capitulos.map(capitulo => {
+						const newTemas = capitulo.temas.split('|')
+						newTemas.pop()
+						totalTemas += newTemas.length
+						return { ...capitulo, temas: newTemas }
+					})
+				}
+			})
+			//////POR TERMINAR !!!
+			let encontrado = false
+			newContenido.map(unidad => {
+				unidad.capitulos.map(capitulo => {
+					capitulo.temas.map(tema => {
+						if (tema != ultimoTema.tema && encontrado) {
+							avanzado += 1
+						} else {
+							encontrado = true
+						}
+					})
+				})
+			})
+			const porcentaje = (Math.round(avanzado * 100 / totalTemas))
+			setPorcentajeAvance([...porcentajeAvance, porcentaje])
+		})
+
 	}
+
+	const getMyCourses = () => {
+		const id = user._id
+		fetch(url + 'mis-cursos/' + id)
+			.then(res => res.json())
+			.then(data => setMyCourses(data))
+			.catch(err => console.log(err))
+	}
+
 	useEffect(() => {
 		getMyCourses()
-	}, [])
+		// calcularAvance()
 
+	}, [])
+	console.log({ porcentajeAvance })
 	if (myCourses.length == 0) {
 		return (
 			<div>
@@ -57,13 +98,12 @@ export default function MisCursos({ id_docente }) {
 			</div>
 		)
 	}
-
 	return (
 		<>
 			<h1>Mis cursos</h1>
 			<div className="d-flex flex-wrap ">
 				{
-					myCourses.map((matricula) =>
+					myCourses.map((matricula, i) =>
 						<div
 							className="w-25 m-0"
 							key={matricula._id}
@@ -72,7 +112,7 @@ export default function MisCursos({ id_docente }) {
 								idMatricula={matricula._id}
 								codigo={matricula.curso.codigo}
 								nombre={matricula.curso.nombre}
-								horario={matricula.curso.horario}
+								porcentajeAvance={porcentajeAvance.length > 0 ? porcentajeAvance[i] : 0}
 							/>
 						</div>
 					)
