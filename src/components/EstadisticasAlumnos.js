@@ -9,12 +9,6 @@ const {Anime, stagger} = ReactAnime
 const uri = 'https://testunsaac.herokuapp.com/api/matriculas/';
 const api = helpHttp();
 
-const csvData = [
-  ["firstname", "lastname", "email"],
-  ["Ahmed", "Tomi", "ah@smthing.co.com"],
-  ["Raed", "Labes", "rl@smthing.co.com"],
-  ["Yezzi", "Min l3b", "ymin@cocococo.com"]
-];
 
 export const EstadisticasAlumnos = ({idMatricula}) => {
 
