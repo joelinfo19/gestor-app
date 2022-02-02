@@ -9,7 +9,7 @@ body{
 }
 
 :root{
-    --navbar-bg: #f7f6ff;   /*#6100d4*/
+    --navbar-bg: #ffffff;   /*#6100d4*/
     --sidebar-bg: #091322  ; /*#92c46b*/
     --sidebar-links-bg: #162349  ; /*#92c46b*/
     --txt-color-nav: #000;
@@ -20,7 +20,7 @@ body{
     --hover-color-txt: #1179f4; 
 
     --main-color: #3a9efb;  
-    --second-bg: #fafafb;
+    --second-bg: #ffffff;
     --second-color: #62b4ff;
     --box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
