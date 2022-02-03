@@ -17,7 +17,10 @@ const CardCourse = ({ idMatricula, codigo, nombre, porcentajeAvance }) => {
           text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
           style={{ width: '35rem' }}
         >
-          <Link className="text-decoration-none" to={idMatricula}>
+          <Link className="text-decoration-none" to={idMatricula}
+            onClick={() => {
+              localStorage.setItem('progreso', JSON.stringify(porcentajeAvance))
+            }}>
             <Card.Img variant="top" src="https://picsum.photos/300/150" />
             <Card.Header>{codigo}</Card.Header>
             <Card.Body>
@@ -138,7 +141,6 @@ export default function MisCursos() {
 
   useEffect(() => {
     getMyCourses()
-
   }, [])
 
   return (

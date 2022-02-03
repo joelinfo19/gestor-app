@@ -9,9 +9,9 @@
         "route": "/user/perfil",
         "icon": "far fa-user"
     },  {
-        "display_name": "Reportes",
-        "route": "/user/reportes",
-        "icon": "far fa-user"
+        "display_name": "Historial",
+        "route": "/user/historial",
+        "icon": "far fa-clipboard"
     }
 
 ]

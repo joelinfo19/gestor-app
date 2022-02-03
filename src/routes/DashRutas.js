@@ -41,7 +41,7 @@ export default function DashRutas() {
                                     <Perfil />
                                 </PrivateRouteUser> 
                             } />
-                            <Route exact path='/reportes' element={
+                            <Route exact path='/historial' element={
                                 <PrivateRouteUser  conRol='regular'>
                                     <Reportes />
                                 </PrivateRouteUser>

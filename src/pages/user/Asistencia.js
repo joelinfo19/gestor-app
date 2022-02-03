@@ -1,11 +1,12 @@
 import { Dropdown } from "react-bootstrap"
 import { useState } from "react"
+import Swal from 'sweetalert2'
 
 import { ListaAlumnos } from '../../components/ListaAlumnos';
 
 const url = 'https://testunsaac.herokuapp.com/api/matriculas/'
 
-export function Asistencia({ contenido, matricula, idDocente, nombreCurso }) {
+export function Asistencia({ contenido, matricula, idDocente, nombreCurso, setShow }) {
   const idMatricula = matricula._id
 
   const [descripcion, setDescripcion] = useState('');
@@ -66,9 +67,12 @@ export function Asistencia({ contenido, matricula, idDocente, nombreCurso }) {
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(err => console.log(err))
+
+
   }
 
   const handleAsistencia = async (e, asistenciasAlumnos) => {
+    setShow(false)
     guardarAsistencia();
     await fetch(`${url}asistencia-alumnos/${idMatricula}`, {
       method: 'POST',
@@ -77,7 +81,23 @@ export function Asistencia({ contenido, matricula, idDocente, nombreCurso }) {
         'Content-Type': 'application/json'
       }
     })
-    alert("Se registraron las asistencias");
+      .then(res => res.json())
+      .then(() =>
+        Swal.fire({
+          icon: 'success',
+          title: 'Asistencia registrado correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      )
+      .catch(err => 
+        Swal.fire({
+          icon: 'error',
+          title: 'Hubo un error',
+          showConfirmButton: true,
+          text: err.message
+        })
+        )
     e.target.disabled = true;
   }
 

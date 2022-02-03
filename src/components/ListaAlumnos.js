@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { helpHttp } from '../helpers/helpHttp';
 import sty from './styles/ListaAlumnos.module.css';
-
+import { Swal } from 'sweetalert2';
 
 export const ListaAlumnos = ({ docente, curso, handleAsistencia }) => {
 
