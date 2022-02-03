@@ -8,6 +8,7 @@ import { Fragment } from "react";
 import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Docentes from '../pages/admin/Docentes'
+import Estadisticas from '../pages/admin/Estadisticas'
 import Cursos from '../pages/admin/Cursos'
 import AsignarHorarios from '../pages/admin/AsignarHorarios'
 import Sidebar_items from '../assets/JsonData/sidebar_admin_routes.json'
@@ -49,6 +50,12 @@ export default function DashRutas() {
                                     <Perfil />
                                 </PrivateRouteAdmin>
                             } />
+                            <Route exact path='/Estadisticas' element={
+                                <PrivateRouteAdmin conRol="admin">
+                                    <Estadisticas />
+                                </PrivateRouteAdmin>
+                            } />
+                            
 
 
                         </Routes>
