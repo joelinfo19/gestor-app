@@ -1,13 +1,8 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-
+import Swal from 'sweetalert2'
 import Modalv2 from '../../components/Modalv2'
-import { Button, Tabs, Tab, Row, Col, Nav } from 'react-bootstrap'
-import ListGroup from 'react-bootstrap/ListGroup'
-import Form from 'react-bootstrap/Form'
-import Card from 'react-bootstrap/Card'
-import { FormControlLabel } from '@material-ui/core'
+import { Tab, Row, Col, Nav } from 'react-bootstrap'
 import { Asistencia } from './Asistencia'
 import { HistorialAsistencia } from './HistorialAsistencia'
 import {EstadisticasAlumnos} from '../../components/EstadisticasAlumnos';
@@ -31,6 +26,7 @@ export default function Curso() {
   const [showModal, setShowModal] = useState(false)
   const [showModalAsistencia, setShowModalAsistencia] = useState(false)
   const [showModalHistorial, setShowModalHistorial] = useState(false)
+  const [showMiProgreso, setShowMiProgreso] = useState(false)
   const [contenido, setContenido] = useState(
     [
       {
@@ -44,7 +40,8 @@ export default function Curso() {
         ]
       },
     ])
-
+  const [cursoNuevo, setCursoNuevo] = useState(true)
+  const [ultimoTema, setUltimoTema] = useState('')
   useEffect(() => {
     fetch(`${url}/matriculas/${courseId}`, {
       method: 'GET'
@@ -52,6 +49,8 @@ export default function Curso() {
       .then(res => res.json())
       .then(data => {
         const { matriculas } = data
+        setCursoNuevo(matriculas.contenido.length > 0 ? false : true)
+        setUltimoTema(matriculas.avanzado[matriculas.avanzado.length - 1])
         setMatricula(matriculas)
         setCurso(matriculas.curso)
         // Recuperando los temas
@@ -66,11 +65,8 @@ export default function Curso() {
         })
         setContenido(newContenido)
       })
-  }, [file])
 
-  console.log(curso.nombre);
-
-
+  }, [file, showModalAsistencia, showMiProgreso])
 
   const onChange = (e) => {
     if (e.target.files[0]) {
@@ -100,12 +96,29 @@ export default function Curso() {
         .then(data => {
           // setMatricula({...matricula, silabus: filename})
           setFile(null)
-          alert('Archivo subido!')
+          Swal.fire({
+            icon: 'success',
+            title: 'Archivo cargado correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          }
+          )
         })
-        .catch(error => console.log("msg: ", error))
+        .catch(error =>
+          Swal.fire({
+            icon: 'error',
+            title: 'Hubo un error',
+            text: error.message,
+            showConfirmButton: true
+          })
+        )
     }
     else {
-      alert('seleccione un archivo')
+      Swal.fire({
+        icon: 'warning',
+        title: 'Seleccione un archivo',
+        showConfirmButton: true,
+      })
     }
   }
 
@@ -118,33 +131,6 @@ export default function Curso() {
         window.open(data.url)
       })
       .catch(err => console.log(err))
-    // fetch('https://testunsaac.herokuapp.com/api/matriculas/', {
-    // 	method: 'GET'
-    // })
-    // 	.then(res => res.json())
-    // 	.then(data => {
-    // 		const { matriculas } = data
-    // 		const { silabus } = matriculas.find(matricula =>
-    // 			matricula._id == courseId
-    // 		)
-    // 		setUrlPdf(silabus)
-    // 		return silabus
-    // 	})
-    // 	.then(silabus => {
-    // 		silabus
-    // 			? fetch(url + silabus, {
-    // 				method: 'GET',
-    // 				responseType: 'blob'
-    // 			})
-    // 				.then(data => {
-    // 					console.log({ data: data })
-    // 					window.open(data.url)
-    // 				})
-    // 				.catch(err => console.log(err))
-
-    // 			: alert("no tienes ningun pdf", urlPdf)
-    // 	})
-
   }
 
   const handleOnChange = (event, iUnidad, iCapitulo) => {
@@ -315,8 +301,23 @@ export default function Curso() {
       body: JSON.stringify({ contenido: newContent })
     })
       .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+      .then(() =>
+        Swal.fire({
+          icon: 'success',
+          title: 'Temas guardados correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      )
+      .catch(err =>
+        Swal.fire({
+          icon: 'error',
+          title: 'Hubo un error :(',
+          text: err.message,
+          showConfirmButton: true,
+        })
+      )
+
   }
   const cerrarModal = () => {
     setIndice(0)
@@ -332,7 +333,7 @@ export default function Curso() {
             <button
               className='btn btn-success w-100'
               onClick={() => {
-                if (contenido.length > 0){
+                if (contenido.length > 0) {
                   setShowModalAsistencia(true)
                 }
               }}
@@ -401,7 +402,7 @@ export default function Curso() {
           <div className='card mt-3 p-2'>
             <form onSubmit={onSubmit}>
               <div>
-                <label className="form-label">Silabus:</label>
+                <h5 className="form-label">Silabo</h5>
               </div>
               <div className=''>
                 <div>
@@ -419,17 +420,22 @@ export default function Curso() {
                 </div>
               </div>
             </form>
-            <hr></hr>
-            <div className='btn-group w-100'>
-              <button
-                className='btn btn-outline-primary'
-                onClick={() => { setShowModal(true) }}
-              >
-                Agregar/Editar temas a dictar
-              </button>
-            </div>
           </div>
-
+          <div className='card mt-3 p-2'>
+            <h5>Plan de sesiones</h5>
+            <button
+              className='btn btn-primary mb-3'
+              onClick={() => { setShowModal(true) }}
+            >
+              Agregar/Editar Plan de sesiones
+            </button>
+            <button
+              className='btn btn-secondary'
+              onClick={() => { setShowMiProgreso(true) }}
+            >
+              Mi progreso
+            </button>
+          </div>
 
         </div>
         <Modalv2
@@ -559,8 +565,15 @@ export default function Curso() {
           title='ASISTENCIA'
           closeClick={() => console.log(null)}
           saveClick={() => console.log(null)}
+          footer={false}
         >
-          <Asistencia contenido={contenido} idMatricula={matricula._id} idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }} nombreCurso={curso.nombre} />
+          <Asistencia
+            contenido={contenido}
+            matricula={matricula}
+            idDocente={Object.keys(matricula).length != 0 ? matricula.usuario._id : { usuario: { _id: "0" } }}
+            nombreCurso={curso.nombre}
+            setShow={setShowModalAsistencia}
+          />
         </Modalv2>
         <Modalv2
           size="lg"
@@ -572,6 +585,49 @@ export default function Curso() {
         >
           <EstadisticasAlumnos idMatricula={matricula._id}/>
           <HistorialAsistencia matricula={matricula} />
+        </Modalv2>
+        <Modalv2
+          show={showMiProgreso}
+          setShow={setShowMiProgreso}
+          title='Mi progreso'
+          saveClick={() => { }}
+          closeClick={() => { }}
+        >
+          <div>
+            {
+
+              contenido.map((unidad, iUnidad) => {
+                return (
+                  <div>
+                    <h5>{`Unidad ${iUnidad + 1 }: ${unidad.titulo}`}</h5>
+                    {
+                      unidad.capitulos.map((capitulo, iCap) => {
+                        return (
+                          <div>
+                            <h6>{`Capitulo ${iCap + 1}: ${capitulo.titulo} `}</h6>
+                            {
+                              capitulo.temas.map((tema, iTema) => {
+                                return (
+                                  <div>
+                                    <span>{`Tema ${iTema + 1}: ${tema || ''}`}</span>
+                                    {
+                                      ultimoTema && ultimoTema.tema == tema
+                                        ? <input className='form-check-input' type='checkbox' readOnly checked={true} />
+                                        : <></>
+                                    }
+                                  </div>
+                                )
+                              })
+                            }
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                )
+              })
+            }
+          </div>
         </Modalv2>
       </div >
     </div >

@@ -14,6 +14,7 @@ import Sidebar_items from '../assets/JsonData/sidebar_user_routes.json'
 
 import PrivateRouteUser from './PrivateRouteUser'
 import './DashRutas.css'
+import Reportes from "../pages/user/Reportes";
 
 export default function DashRutas() {
     return (
@@ -40,6 +41,13 @@ export default function DashRutas() {
                                     <Perfil />
                                 </PrivateRouteUser> 
                             } />
+                            <Route exact path='/historial' element={
+                                <PrivateRouteUser  conRol='regular'>
+                                    <Reportes />
+                                </PrivateRouteUser>
+                            }
+                            
+                            />
                         </Routes>
                     </div>
 

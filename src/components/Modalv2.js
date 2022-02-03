@@ -1,8 +1,8 @@
 import { Modal, Button } from "react-bootstrap"
 
-export default function Modalv2({ title, children, show, setShow, saveClick, closeClick,size }) {
+export default function Modalv2({ title, children, show, setShow, saveClick, closeClick, size, footer = true }) {
 
-	const handleClose = () =>{
+	const handleClose = () => {
 		setShow(false);
 		closeClick()
 	}
@@ -18,18 +18,23 @@ export default function Modalv2({ title, children, show, setShow, saveClick, clo
 				<Modal.Body>
 					{children}
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close
-					</Button>
-					<Button variant="primary" onClick={() => {
-						handleClose()
-						saveClick()
-					}
-					}>
-						Save Changes
-					</Button>
-				</Modal.Footer>
+				{
+					footer
+						?
+						<Modal.Footer>
+							<Button variant="secondary" onClick={handleClose}>
+								Close
+							</Button>
+							<Button variant="primary" onClick={() => {
+								handleClose()
+								saveClick()
+							}
+							}>
+								Save Changes
+							</Button>
+						</Modal.Footer>
+						: null
+				}
 			</Modal>
 		</>
 	)
