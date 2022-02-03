@@ -11,7 +11,9 @@ export default function Modalv2({ title, children, show, setShow, saveClick, clo
 			<Modal
 				size={size}
 				show={show}
-				onHide={handleClose}>
+				onHide={handleClose}
+				
+				>
 				<Modal.Header closeButton>
 					<Modal.Title>{title}</Modal.Title>
 				</Modal.Header>

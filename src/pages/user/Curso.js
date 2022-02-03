@@ -559,7 +559,7 @@ export default function Curso() {
         </Modalv2>
 
         <Modalv2
-          size="lg"
+          size="xl"
           show={showModalAsistencia}
           setShow={setShowModalAsistencia}
           title='ASISTENCIA'
@@ -584,8 +584,7 @@ export default function Curso() {
           saveClick={() => console.log(null)}
         >
           <EstadisticasAlumnos idMatricula={matricula._id}/>
-          <HistorialAsistencia matricula={matricula} />
-        </Modalv2>
+          </Modalv2>
         <Modalv2
           show={showMiProgreso}
           setShow={setShowMiProgreso}

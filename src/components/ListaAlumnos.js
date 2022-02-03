@@ -43,7 +43,7 @@ export const ListaAlumnos = ({ docente, curso, handleAsistencia }) => {
 
 
   return (
-    <div className={sty.container}>
+    <div className='w-100'>
       <p className={sty.container_title}>Lista de estudiantes:</p>
       <ol className="list-group">
         <li className="list-group-item d-flex justify-content-between align-items-start">
