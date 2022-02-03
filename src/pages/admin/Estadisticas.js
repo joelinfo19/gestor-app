@@ -117,14 +117,14 @@ export default function Estadisticas() {
     option2 = {
         xAxis: {
           type: 'category',
-          data: [ '009','008','007','006','003','002','005','012','010', '009','008', '009','008','007','006','003']
+          data: [ '009','008','007','006','003','002','005','012','010']
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [ 90, 100, 40,82,42,90,78,98, 85, 95, 90, 90, 100, 85, 95, 90],
+            data: [ 90, 100, 75,82,89,90,78,98,0 ],
             type: 'bar',
             showBackground: true,
             backgroundStyle: {
@@ -154,8 +154,8 @@ export default function Estadisticas() {
             top:'10%',
             radius: '75%',
             data: [
-              { value: 9, name: 'DOCENTES CONTRATADOS' },
-              { value: 12, name: 'DOCENTES NOMBRADOS' }
+              { value: 5, name: 'DOCENTES CONTRATADOS' },
+              { value: 11, name: 'DOCENTES NOMBRADOS' }
               
               
             ],
@@ -190,8 +190,8 @@ export default function Estadisticas() {
             top:'10%',
             radius: '75%',
             data: [
-              { value: 17, name: 'DOCENTES OCUPADOS' },
-              { value: 4, name: 'DOCENTES LIBRES' }
+              { value: 9, name: 'DOCENTES OCUPADOS' },
+              { value: 7, name: 'DOCENTES LIBRES' }
               
               
               
