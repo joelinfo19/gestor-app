@@ -1,0 +1,11 @@
+codDocente,email,contrasenia,nombre,apellido,sexo,categoria,esAdmin,telefono
+001,dennis.candia@unsaac.edu,user,Dennis Iván,Candia Oviedo,masculino,Nombrado,false,978-125-785
+002,doris.aguirre@unsaac.edu,user,Doris Sabina,Aguirre Carbajal,femenino,Contratado,false,947-176-985
+003,edwincarrasco@unsaac.edu,user,Edwin,Carrasco Poblete,masculino,Nombrado,false,978-125-023
+004,efraina.cutipa@unsaac.edu,user,Efraina Gladys,Cutipa Arapa,femenino,Contratado,false,978-152-168
+005,emiliopalomino@unsaac.edu,user,Emilio,Palomino Olivera,masculino,Nombrado,false,978-147-368
+006,enrique.gamarra@unsaac.edu,user,Enrique,Gamarra Saldivar,masculino,Nombrado,false,999-879-012
+007,esther.pacheco@unsaac.edu,user,Esther Cristina,Pacheco Vasquez,femenino,Nombrado,false,956-001-121
+008,guzman.ticona@unsaac.edu,user,Guzmán,Ticona Pari,masculino,Nombrado,false,952-123-456
+009,harley.vera@unsaac.edu,user,Harley,Vera Olivera,masculino,Contratado,false,963-014-789
+010,henry.duenas@unsaac.edu,user,Henry Samuel,Dueñas De La Cruz,masculino,Contratado,false,987-456-001

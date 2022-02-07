@@ -1,5 +1,12 @@
+
+// user : 'zonia@unsaac.edu'
+// pass : 'mama'
+// 'los demas accesos en el csv estan'
+// deployado : 'https://competent-mcnulty-c66773.netlify.app/'
+
+
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, UNSAFE_LocationContext, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import './Login.css'
 import { axios } from '../helpers/axios'
